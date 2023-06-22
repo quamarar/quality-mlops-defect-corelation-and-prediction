@@ -1,4 +1,4 @@
-pipelineJob('quality-mlops-defect-corelation-and-prediction/seed-jobs') {
+pipelineJob('seed-jobs') {
     definition {
         cpsScm {
             scm {
