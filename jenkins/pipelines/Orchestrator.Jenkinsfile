@@ -1,25 +1,26 @@
 
+
 pipeline {
   agent any
 
   environment {
     // FOO will be available in entire pipeline
-    FOO = "PIPELINE"
+    This = "Orchestrator"
   }
 
   stages {
     stage("local") {
       environment {
         // BAR will only be available in this stage
-        BAR = "STAGE"
+        automated = "Pipeline"
       }
       steps {
-        sh 'echo "FOO is $FOO and BAR is $BAR"'
+        sh 'echo "This is $This and its automated  $automated"'
       }
     }
     stage("global") {
       steps {
-        sh 'echo "FOO is $FOO and BAR is $BAR"'
+        sh 'echo "This is $This and its automated  $automated"'
       }
     }
   }
