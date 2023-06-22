@@ -8,7 +8,6 @@ pipeline {
 
   stages {
     stage("local") {
-      }
       steps {
         sh 'echo "This is ${Folder}  and its automated pipeline"'
       }
