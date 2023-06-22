@@ -1,23 +1,15 @@
-
 pipeline {
   agent any
+  parameters {
+  string defaultValue: 'Inference', name: 'Folder'
+}
 
-  environment {
-    This = "Inference"
-  }
 
   stages {
     stage("local") {
-      environment {
-        automated = "Pipeline"
       }
       steps {
-        sh 'echo "This is $This and its automated  $automated"'
-      }
-    }
-    stage("global") {
-      steps {
-        sh 'echo "This is $This and its automated  $automated"'
+        sh 'echo "This is $Folder  and its automated pipeline"'
       }
     }
   }
