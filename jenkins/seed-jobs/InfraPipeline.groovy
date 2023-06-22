@@ -1,4 +1,4 @@
-pipelineJob('github-demo') {
+pipelineJob('seed-jobs') {
     definition {
         cpsScm {
             scm {
