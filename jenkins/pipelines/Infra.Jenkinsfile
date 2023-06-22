@@ -1,6 +1,10 @@
 
 pipeline {
   agent any
+  parameters {
+  string defaultValue: 'Infra', name: 'Folder'
+}
+
 
   environment {
     Folder = "Infra" 
