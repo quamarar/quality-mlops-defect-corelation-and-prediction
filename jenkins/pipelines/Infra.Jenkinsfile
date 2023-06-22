@@ -6,11 +6,6 @@ pipeline {
 }
 
 
-  environment {
-    Folder = "Infra" 
-
-  }
-
   stages {
     stage("local") {
       }
