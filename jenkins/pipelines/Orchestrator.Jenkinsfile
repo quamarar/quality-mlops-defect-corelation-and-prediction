@@ -20,8 +20,20 @@ pipeline {
           parameters: [
               string (defaultValue: 'Infra', name: 'Folder')
                ]
+          propagate: true, wait: true
       } 
     }
    }
   }
 
+    stage("triggerinference pipeline") {
+        steps {
+         build job: "MSIL Demo/seed-jobs-MSIL-Inference" ,
+          parameters: [
+              string (defaultValue: 'Inference', name: 'Folder')
+               ]
+          
+      } 
+    }
+   }
+  }
