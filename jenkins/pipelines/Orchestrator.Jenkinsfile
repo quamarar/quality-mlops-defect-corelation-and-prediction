@@ -15,7 +15,7 @@ pipeline {
 
     stage("triggerinfra pipeline") {
         steps {
-         build : 'seed-jobs-MSIL-Infra' 
+         build : 'seed-jobs-MSIL-Infra' ,
           parameters [
               string defaultValue: 'Infra', name: 'Folder'
                ]
