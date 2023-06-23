@@ -19,7 +19,7 @@ pipeline {
          build job: "MSIL Demo/seed-jobs-MSIL-Infra" ,
           parameters: [
               string (defaultValue: 'Infra', name: 'Folder')
-               ]
+               ],
           propagate: true, wait: true
       } 
     }
