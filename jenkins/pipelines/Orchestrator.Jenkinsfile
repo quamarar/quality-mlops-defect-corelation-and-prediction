@@ -35,12 +35,16 @@ pipeline {
 
     stage("triggerinference pipeline") {
         steps {
+         script {
+          if(test_result == true) {
          build job: "MSIL Demo/seed-jobs-MSIL-Inference" ,
           parameters: [
               string (defaultValue: 'Inference', name: 'Folder')
-               ]
-          
-      } 
+               ],
+                propagate: true, wait: true }   
+            else{
+              This job is failed}
     }
    }
   }
+}
