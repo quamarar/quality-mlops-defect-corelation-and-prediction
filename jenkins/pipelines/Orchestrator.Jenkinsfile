@@ -1,5 +1,5 @@
 
-
+@Library("shared-library") _
 pipeline {
   agent any
   parameters {
@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage("local") {
       steps {
-        sh 'echo "This is ${Folder}  and its automated pipeline"'
+        Pipeline()
       }
     }
   }
