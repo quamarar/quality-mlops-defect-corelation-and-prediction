@@ -13,9 +13,6 @@ pipeline {
         }
       }
 
-    stage('triggerinfra pipeline') {
-    // some block
-}
  
     stage("triggerinfra pipeline") {
         steps {
