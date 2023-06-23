@@ -22,8 +22,8 @@ pipeline {
                ]
       } 
     }
-   }
-  }
+   
+  
 
     stage("triggerinference pipeline") {
         steps {
