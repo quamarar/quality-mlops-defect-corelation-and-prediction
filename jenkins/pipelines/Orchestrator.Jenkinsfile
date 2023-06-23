@@ -13,10 +13,14 @@ pipeline {
         }
       }
 
+    stage('triggerinfra pipeline') {
+    // some block
+}
+ 
     stage("triggerinfra pipeline") {
         steps {
          build job: "MSIL Demo/seed-jobs-MSIL-Infra" ,
-          parameters [
+          parameters: [
               string (defaultValue: 'Infra', name: 'Folder')
                ]
       } 
