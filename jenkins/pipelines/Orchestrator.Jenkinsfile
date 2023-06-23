@@ -1,4 +1,4 @@
-
+def boolean test_results = false
 @Library("shared-library") _
 pipeline {
   agent any
@@ -10,17 +10,24 @@ pipeline {
     stage("local") {
       steps {
         Pipeline()
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+        script { test_results = true }
         }
       }
 
  
     stage("triggerinfra pipeline") {
         steps {
-         build job: "MSIL Demo/seed-jobs-MSIL-Infra" ,
-          parameters: [
+          script {
+           if( test_results == true ) {
+            build job: "MSIL Demo/seed-jobs-MSIL-Infra" ,
+             parameters: [
               string (defaultValue: 'Infra', name: 'Folder')
                ],
-           propagate: true, wait: true
+                propagate: true, wait: true }
+             else
+               { This job is failed}
+         }
       } 
     }
    
