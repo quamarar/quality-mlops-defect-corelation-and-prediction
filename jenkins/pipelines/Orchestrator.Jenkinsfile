@@ -14,7 +14,7 @@ pipeline {
         script { test_results = true }
         }
       }
-
+    }
  
     stage("triggerinfra pipeline") {
         steps {
