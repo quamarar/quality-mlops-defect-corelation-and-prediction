@@ -17,7 +17,7 @@ pipeline {
         steps {
          build : 'seed-jobs-MSIL-Infra' ,
           parameters [
-              string defaultValue: 'Infra', name: 'Folder'
+              string (defaultValue: 'Infra', name: 'Folder')
                ]
       } 
     }
