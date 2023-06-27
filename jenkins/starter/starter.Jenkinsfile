@@ -8,7 +8,7 @@ pipeline {
         }        
         stage('build') {
             steps {
-                python3 jenkins_automation.py
+                sh 'python3 jenkins_automation.py' 
             }
         }
     }
