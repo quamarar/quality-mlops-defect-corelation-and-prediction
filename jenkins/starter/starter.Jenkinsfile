@@ -8,7 +8,7 @@ pipeline {
         }        
         stage('build') {
             steps {
-                sh 'python --version'
+                sh 'python3 --version'
                 sh 'python3 -m venv venv'
                 sh '. venv/bin/activate'
                 sh 'pip install python-jenkins'
