@@ -1,4 +1,4 @@
-pipelineJob('MSIL Demo/seed-jobs-MSIL-Infra') {
+pipelineJob('seed-jobs-MSIL-Infra') {
     definition {
         cpsScm {
             scm {
