@@ -1,4 +1,4 @@
-pipelineJob('MSIL Demo/seed-jobs-MSIL-Orchestrator') {
+pipelineJob('seed-jobs-MSIL-Orchestrator') {
     definition {
         cpsScm {
             scm {
