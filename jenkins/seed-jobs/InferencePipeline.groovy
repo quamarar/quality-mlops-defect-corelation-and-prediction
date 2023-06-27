@@ -1,4 +1,4 @@
-pipelineJob('seed-jobs-MSIL-Inference') {
+pipelineJob('Msil_Demo/seed-jobs-MSIL-Inference') {
     definition {
         cpsScm {
             scm {
