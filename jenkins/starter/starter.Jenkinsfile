@@ -8,6 +8,10 @@ pipeline {
         }        
         stage('build') {
             steps {
+                sh 'python3 -m venv venv'
+                sh '. venv/bin/activate'
+                sh 'pip3 install python-jenkins'
+                sh 'pip install -r requirements.txt'
                 sh 'python3 jenkins_automation.py' 
             }
         }
