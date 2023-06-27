@@ -1,0 +1,12 @@
+pipeline {
+    agent {
+        label 'python'
+    }
+    stages {
+        stage('Run Python Script') {
+            steps {
+                sh 'jenkins_automation.py'
+            }
+        }
+    }
+}
