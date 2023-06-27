@@ -20,7 +20,7 @@ pipeline {
         steps {
           script {
            if( test_results == true ) {
-            build job: "MSIL Demo/seed-jobs-MSIL-Infra" ,
+            build job: "seed-jobs-MSIL-Infra" ,
              parameters: [
               string (defaultValue: 'Infra', name: 'Folder')
                ],
@@ -35,7 +35,7 @@ pipeline {
 
     stage("triggerinference pipeline") {
         steps {
-           build job: "MSIL Demo/seed-jobs-MSIL-Inference" ,
+           build job: "seed-jobs-MSIL-Inference" ,
             parameters: [
               string (defaultValue: 'Inference', name: 'Folder')
                ],
