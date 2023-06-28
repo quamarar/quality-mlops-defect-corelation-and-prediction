@@ -10,6 +10,7 @@ pipeline {
              pwd
              cd jenkins/starter/
              pip install -r requirements.txt
+             python3 jenkins_automation.py
              """
         }
       }
