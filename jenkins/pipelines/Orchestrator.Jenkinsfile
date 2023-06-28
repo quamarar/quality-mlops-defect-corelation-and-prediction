@@ -18,7 +18,7 @@ pipeline {
           script {
            if( test_results == true ) {
             build job: "seed-jobs-MSIL-Infra" ,
-                propagate: true, wait: true }
+                propagate: false, wait: true }
              else
                { This job is failed}
          }
