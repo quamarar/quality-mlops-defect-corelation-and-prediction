@@ -1,4 +1,8 @@
 pipelineJob('seed-jobs-MSIL-Orchestrator') {
+
+    parameters {
+         stringParam('Folder','Orchestrator','name of the folder')
+        }
     definition {
         cpsScm {
             scm {
