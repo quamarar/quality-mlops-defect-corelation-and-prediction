@@ -30,9 +30,7 @@ pipeline {
     stage("triggerinference pipeline") {
         steps {
            build job: "seed-jobs-MSIL-Inference" ,
-            parameters: [
-              string (defaultValue: 'Inference', name: 'Folder')
-               ],
+
                 propagate: true, wait: true }   
 
     }
