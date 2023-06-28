@@ -1,7 +1,7 @@
 pipelineJob('seed-jobs-MSIL-Infra') {
 
     parameters {
-         stringParam(defaultValue: 'Infra', name: 'Folder')
+         stringParam('Folder', 'Infra','name of the folder')
         }
 
     definition {
