@@ -1,5 +1,9 @@
 pipelineJob('seed-jobs-MSIL-Infra') {
 
+    parameters {
+         stringParam(defaultValue: 'Infra', name: 'Folder')
+        }
+
     definition {
         cpsScm {
             scm {
