@@ -18,9 +18,6 @@ pipeline {
           script {
            if( test_results == true ) {
             build job: "seed-jobs-MSIL-Infra" ,
-             parameters: [
-              string (defaultValue: 'Infra', name: 'Folder')
-               ],
                 propagate: true, wait: true }
              else
                { This job is failed}
