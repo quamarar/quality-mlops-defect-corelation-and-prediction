@@ -8,7 +8,8 @@ pipeline {
             . venv/bin/activate
              pip install python-jenkins
              pwd
-             pip install -r /jenkins/starter/requirements.txt
+             cd jenkins/starter/
+             pip install -r requirements.txt
              """
         }
       }
