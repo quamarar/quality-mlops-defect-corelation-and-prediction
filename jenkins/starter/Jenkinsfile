@@ -1,6 +1,8 @@
 pipeline {
   agent any {
-    stages (creationofseedjob){
-      stage {
+    stages {
+      stage (creationofseedjob) {
+        steps {
+          
         
      
