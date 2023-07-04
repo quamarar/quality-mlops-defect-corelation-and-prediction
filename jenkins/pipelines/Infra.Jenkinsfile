@@ -1,14 +1,105 @@
-@Library("shared-library") _
 pipeline {
   agent any
 
-
-
-  stages {
-    stage("local") {
-      steps {
-        Pipeline()
-      }
-    }
+  parameters {
+    string(defaultValue: "us-east-1", description: 'aws region', name: 'AWS_REGION')
+    
+    choice(
+            choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
+            description: 'Terraform action to apply',
+            name: 'action')
+    choice(
+            choices: ['dev', 'uat', 'prod'],
+            description: 'deployment environment',
+            name: 'ENVIRONMENT')
   }
-}
+
+    stages {
+        stage('Initialise terraform directory') {
+            steps{
+                dir('infra/terraform') {
+                    sh 'terraform init -no-color -backend-config="bucket=MSIL-DCP-${ENVIRONMENT}-tfstate" -backend-config="key=MSIL-DCP-${ENVIRONMENT}/terraform.tfstate" -backend-config="region=${AWS_REGION}"'
+                }
+            }
+        }
+        stage('TerraformValidate') {
+            steps{
+                dir('infra/terraform') {
+                    sh "terraform validate"
+                }
+            }
+        }  
+        stage('Terraformplan') {
+            when {
+                expression { params.action == 'plan' || params.action == 'apply' }
+            }
+            steps{
+                dir('infra/terraform') {
+                     sh 'terraform plan -no-color -input=false -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.vars'
+                }
+            }
+        }
+        stage('approval') {
+            when {
+                expression { params.action == 'apply'}
+            }
+            steps {
+                dir('infra/terraform') {
+                sh 'terraform show -no-color tfplan > tfplan.txt'
+                script {
+                    def plan = readFile 'tfplan.txt'
+                    input message: "Apply the plan?",
+                    parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                    }
+                }
+
+            }
+        }
+        stage('apply') {
+            when {
+                expression { params.action == 'apply' }
+            }
+            steps {
+                dir('infra/terraform') {
+                sh 'terraform apply -no-color -input=false tfplan'
+            }
+          }
+        } 
+        stage('show') {
+            when {
+                expression { params.action == 'show' }
+            }
+            steps {
+                dir('infra/terraform') {
+                sh 'terraform show -no-color'
+            }
+          }
+        }
+        stage('preview-destroy') {
+            when {
+                expression { params.action == 'preview-destroy' || params.action == 'destroy'}
+            }
+            steps {
+                dir('infra/terraform') {
+                sh 'terraform plan -no-color -destroy -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.vars'
+                sh 'terraform show -no-color tfplan > tfplan.txt'
+            }
+          }
+       }
+        stage('destroy') {
+            when {
+                expression { params.action == 'destroy' }
+            }
+            steps {
+                dir('infra/terraform') {
+                script {
+                    def plan = readFile 'tfplan.txt'
+                    input message: "Delete the stack?",
+                    parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                }
+                sh 'terraform destroy -no-color -force -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.vars'
+            }
+        }
+    }
+ }
+} 
