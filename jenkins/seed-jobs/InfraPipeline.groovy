@@ -1,16 +1,16 @@
 pipelineJob('seed-jobs-MSIL-Infra') {
 
   parameters {
-    stringParam(defaultValue: 'us-east-1', description: 'aws region', name: 'AWS_REGION')
+    stringParam('us-east-1', 'aws region', 'AWS_REGION')
     
-    choice(
-            choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
-            description: 'Terraform action to apply',
-            name: 'action')
-    choice(
-            choices: ['dev', 'uat', 'prod'],
-            description: 'deployment environment',
-            name: 'ENVIRONMENT')
+    choiceParam(
+             ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
+             'Terraform action to apply',
+             'action')
+    choiceParam(
+            ['dev', 'uat', 'prod'],
+             'deployment environment',
+            'ENVIRONMENT')
   }
 
     definition {
