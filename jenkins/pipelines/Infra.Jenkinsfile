@@ -17,14 +17,14 @@ pipeline {
     stages {
         stage('Initialise terraform directory') {
             steps{
-                dir('infra/terraform') {
+                dir('infra') {
                     sh 'terraform init -no-color -backend-config="bucket=MSIL-DCP-${ENVIRONMENT}-tfstate" -backend-config="key=MSIL-DCP-${ENVIRONMENT}/terraform.tfstate" -backend-config="region=${AWS_REGION}"'
                 }
             }
         }
         stage('TerraformValidate') {
             steps{
-                dir('infra/terraform') {
+                dir('infra') {
                     sh "terraform validate"
                 }
             }
@@ -34,7 +34,7 @@ pipeline {
                 expression { params.action == 'plan' || params.action == 'apply' }
             }
             steps{
-                dir('infra/terraform') {
+                dir('infra') {
                      sh 'terraform plan -no-color -input=false -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.vars'
                 }
             }
@@ -44,7 +44,7 @@ pipeline {
                 expression { params.action == 'apply'}
             }
             steps {
-                dir('infra/terraform') {
+                dir('infra') {
                 sh 'terraform show -no-color tfplan > tfplan.txt'
                 script {
                     def plan = readFile 'tfplan.txt'
@@ -60,7 +60,7 @@ pipeline {
                 expression { params.action == 'apply' }
             }
             steps {
-                dir('infra/terraform') {
+                dir('infra') {
                 sh 'terraform apply -no-color -input=false tfplan'
             }
           }
@@ -70,7 +70,7 @@ pipeline {
                 expression { params.action == 'show' }
             }
             steps {
-                dir('infra/terraform') {
+                dir('infra') {
                 sh 'terraform show -no-color'
             }
           }
@@ -80,7 +80,7 @@ pipeline {
                 expression { params.action == 'preview-destroy' || params.action == 'destroy'}
             }
             steps {
-                dir('infra/terraform') {
+                dir('infra') {
                 sh 'terraform plan -no-color -destroy -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.vars'
                 sh 'terraform show -no-color tfplan > tfplan.txt'
             }
@@ -91,7 +91,7 @@ pipeline {
                 expression { params.action == 'destroy' }
             }
             steps {
-                dir('infra/terraform') {
+                dir('infra') {
                 script {
                     def plan = readFile 'tfplan.txt'
                     input message: "Delete the stack?",
