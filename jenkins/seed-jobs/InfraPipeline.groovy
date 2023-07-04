@@ -1,7 +1,7 @@
 pipelineJob('seed-jobs-MSIL-Infra') {
 
   parameters {
-    string(defaultValue: "us-east-1", description: 'aws region', name: 'AWS_REGION')
+    stringParam(defaultValue: 'us-east-1', description: 'aws region', name: 'AWS_REGION')
     
     choice(
             choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
