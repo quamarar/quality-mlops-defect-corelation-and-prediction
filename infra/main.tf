@@ -21,7 +21,7 @@ variable "aws_region" {
 }
  
 resource "aws_instance" "app_server" {
-  ami           = "ami-830c94e3"
+  ami           = "ami-04a0ae173da5807d3"
   instance_type = var.instance_type
 
   tags = {
