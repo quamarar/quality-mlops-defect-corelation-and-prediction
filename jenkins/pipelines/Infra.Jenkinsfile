@@ -55,51 +55,5 @@ pipeline {
 
             }
         }
-        stage('apply') {
-            when {
-                expression { params.action == 'apply' }
-            }
-            steps {
-                dir('infra') {
-                sh 'terraform apply -no-color -input=false tfplan'
-            }
-          }
-        } 
-        stage('show') {
-            when {
-                expression { params.action == 'show' }
-            }
-            steps {
-                dir('infra') {
-                sh 'terraform show -no-color'
-            }
-          }
-        }
-        stage('preview-destroy') {
-            when {
-                expression { params.action == 'preview-destroy' || params.action == 'destroy'}
-            }
-            steps {
-                dir('infra') {
-                sh 'terraform plan -no-color -destroy -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
-                sh 'terraform show -no-color tfplan > tfplan.txt'
-            }
-          }
-       }
-        stage('destroy') {
-            when {
-                expression { params.action == 'destroy' }
-            }
-            steps {
-                dir('infra') {
-                script {
-                    def plan = readFile 'tfplan.txt'
-                    input message: "Delete the stack?",
-                    parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
-                }
-                sh 'terraform destroy -no-color -auto-approve -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
-            }
-        }
-    }
  }
 } 
