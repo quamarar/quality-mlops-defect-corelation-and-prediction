@@ -35,7 +35,7 @@ pipeline {
             }
             steps{
                 dir('infra') {
-                     sh 'terraform plan -no-color -input=false -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
+                     sh 'terraform plan -no-color  -input=false -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
                 }
             }
         }
@@ -97,7 +97,7 @@ pipeline {
                     input message: "Delete the stack?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                 }
-                sh 'terraform destroy -no-color  -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
+                sh 'terraform destroy -no-color -force -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
             }
         }
     }
