@@ -19,9 +19,7 @@ pipeline {
             }
         }  
         stage('Terraformplan') {
-            when {
-                expression { params.action == 'plan' || params.action == 'apply' }
-            }
+
             steps{
                 dir('infra') {
                      sh 'terraform plan -no-color  -input=false -out=tfplan -var aws_region=us-east1 --var-file=environments/dev.tfvars'
