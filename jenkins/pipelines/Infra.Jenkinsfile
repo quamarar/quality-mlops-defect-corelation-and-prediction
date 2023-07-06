@@ -19,7 +19,6 @@ pipeline {
             }
         }  
         stage('Terraformplan') {
-
             steps{
                 dir('infra') {
                      sh 'terraform plan -no-color  -input=false -out=tfplan -var aws_region=us-east1 --var-file=environments/dev.tfvars'
