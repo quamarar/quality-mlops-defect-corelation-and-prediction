@@ -14,7 +14,16 @@ pipeline {
             name: 'ENVIRONMENT')
   }
 
+
+
     stages {
+
+        stage(checkout) {
+          steps {
+            checkout scmGit(branches: [[name: '*/test']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/quamarar/quality-mlops-defect-corelation-and-prediction.git']])
+           }
+         }
+
         stage('Initialise terraform directory') {
             steps{
                 dir('infra') {
