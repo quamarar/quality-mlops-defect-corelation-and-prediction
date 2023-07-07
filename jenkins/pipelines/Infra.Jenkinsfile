@@ -15,9 +15,6 @@ pipeline {
             name: 'ENVIRONMENT')
   }
 
-   environment {
-     GIT_BRANCH = 'origin/master'
-   }
 
     stages {
         stage('Initialise terraform directory') {
@@ -36,7 +33,7 @@ pipeline {
         }  
         stage('Terraformplan') {
             when {
-                expression { params.action == 'plan' && params.action == 'apply'  }
+                expression { params.action == 'plan' || params.action == 'apply'  }
             }
             steps{
                 dir('infra') {
