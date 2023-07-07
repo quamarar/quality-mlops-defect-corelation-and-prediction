@@ -3,7 +3,7 @@ pipeline {
 
   parameters {
     string(defaultValue: "us-east-1", description: 'aws region', name: 'AWS_REGION')
-    gitParameter(name: 'branchName',branchFilter: 'origin/(.*)',defaultValue: 'master',type: 'PT_BRANCH')
+    gitParameter(name: 'branchName',branchFilter: 'origin/(.*)',defaultValue: 'test',type: 'PT_BRANCH')
     
     choice(
             choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
@@ -36,7 +36,7 @@ pipeline {
         }  
         stage('Terraformplan') {
             when {
-                expression { params.action == 'plan' && params.action == 'apply' }
+                expression { params.action == 'plan' && params.action == 'apply'  }
             }
             steps{
                 dir('infra') {
