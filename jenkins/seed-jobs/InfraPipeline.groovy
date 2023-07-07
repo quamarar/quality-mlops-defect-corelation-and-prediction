@@ -1,4 +1,4 @@
-pipelineJob('seed-jobs-MSIL-Infra') {
+multibranchPipelineJob('seed-jobs-MSIL-Infra') {
 
   parameters {
     stringParam('AWS_REGION','us-east-1','aws region')
