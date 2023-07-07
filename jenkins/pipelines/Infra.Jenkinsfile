@@ -12,7 +12,7 @@ pipeline {
             choices: ['dev', 'uat', 'prod'],
             description: 'deployment environment',
             name: 'ENVIRONMENT')
-  }
+     }
 
 
     stages {
