@@ -41,7 +41,7 @@ pipeline {
         }
         stage('approval') {
             when {
-                expression { params.action == 'apply' && env.BRANCH_NAME != 'master'}
+                expression { params.action == 'apply' && env.BRANCH_NAME = 'master'}
             }
             steps {
                 dir('infra') {
