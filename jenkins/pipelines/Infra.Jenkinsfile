@@ -62,7 +62,7 @@ pipeline {
         }
               stage('apply') {
             when {
-                expression { params.action == 'apply' params.branchName == "origin/master" }
+                expression { params.action == 'apply' && params.branchName == "origin/master" }
             }
             steps {
                 dir('infra/terraform') {
