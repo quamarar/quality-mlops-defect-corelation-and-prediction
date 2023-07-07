@@ -14,6 +14,10 @@ pipeline {
             name: 'ENVIRONMENT')
   }
 
+   environment {
+     BRANCH_NAME = "master"
+   }
+
     stages {
         stage('Initialise terraform directory') {
             steps{
