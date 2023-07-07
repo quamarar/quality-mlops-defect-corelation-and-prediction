@@ -37,5 +37,24 @@ pipeline {
                 }
             }
         }
+
+         stage('approval') {
+            when {
+                expression { params.action == 'apply' && env.BRANCH_NAME != 'master'}
+            }
+            steps {
+                dir('infra') {
+                sh 'terraform show -no-color tfplan > tfplan.txt'
+                script {
+                    def plan = readFile 'tfplan.txt'
+                    input message: "Apply the plan?",
+                    parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                    }
+                }
+
+            }
+        }
+
+
  }
 } 
