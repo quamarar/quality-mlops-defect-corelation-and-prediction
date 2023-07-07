@@ -40,7 +40,7 @@ pipeline {
 
          stage('approval') {
             when {
-                expression { params.action == 'apply' && env.BRANCH_NAME != 'master'}
+                expression { params.action == 'apply' && env.BRANCH_NAME = 'master'}
             }
             steps {
                 dir('infra') {
@@ -57,7 +57,7 @@ pipeline {
 
           stage('apply') {
             when {
-                expression { params.action == 'apply' && env.BRANCH_NAME != 'master' }
+                expression { params.action == 'apply' && env.BRANCH_NAME = 'master' }
             }
             steps {
                 dir('infra/terraform') {
@@ -79,7 +79,7 @@ pipeline {
 
         stage('preview-destroy') {
             when {
-                expression { params.action == 'preview-destroy' || params.action == 'destroy' && env.BRANCH_NAME != 'master'}
+                expression { params.action == 'preview-destroy' || params.action == 'destroy' && env.BRANCH_NAME = 'master'}
             }
             steps {
                 dir('infra/terraform') {
@@ -90,7 +90,7 @@ pipeline {
        }
         stage('destroy') {
             when {
-                expression { params.action == 'destroy' && env.BRANCH_NAME != 'master' }
+                expression { params.action == 'destroy' && env.BRANCH_NAME = 'master' }
             }
             steps {
                 dir('infra/terraform') {
