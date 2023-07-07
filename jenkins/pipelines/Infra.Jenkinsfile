@@ -61,7 +61,7 @@ pipeline {
                 expression { params.action == 'apply' }
             }
             steps {
-                dir('infra/terraform') {
+                dir('infra') {
                 sh 'terraform apply -no-color -input=false tfplan'
             }
           }
@@ -71,7 +71,7 @@ pipeline {
                 expression { params.action == 'show' }
             }
             steps {
-                dir('infra/terraform') {
+                dir('infra') {
                 sh 'terraform show -no-color'
             }
           }
@@ -81,7 +81,7 @@ pipeline {
                 expression { params.action == 'preview-destroy' || params.action == 'destroy' }
             }
             steps {
-                dir('infra/terraform') {
+                dir('infra') {
                 sh 'terraform plan -no-color -destroy -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
                 sh 'terraform show -no-color tfplan > tfplan.txt'
             }
@@ -92,7 +92,7 @@ pipeline {
                 expression { params.action == 'destroy' }
             }
             steps {
-                dir('infra/terraform') {
+                dir('infra') {
                 script {
                     def plan = readFile 'tfplan.txt'
                     input message: "Delete the stack?",
