@@ -5,11 +5,6 @@ pipeline {
     string(defaultValue: "us-east-1", description: 'aws region', name: 'AWS_REGION')
 
 
-    choice(
-            choices: ['fix-123', 'master', 'PR-*'],
-            description: 'select branch',
-            name: 'branch')
-
     
     choice(
             choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
