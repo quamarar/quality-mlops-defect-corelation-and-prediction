@@ -3,7 +3,6 @@ pipeline {
 
   parameters {
     string(defaultValue: "us-east-1", description: 'aws region', name: 'AWS_REGION')
-    gitParameter(name: 'branchName',branchFilter: 'origin/(.*)',defaultValue: 'test',type: 'PT_BRANCH')
     
     choice(
             choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
@@ -43,7 +42,7 @@ pipeline {
         }
         stage('approval') {
             when {
-                expression { params.action == 'apply' && params.branchName == "origin/master" }
+                expression { params.action == 'apply' }
             }
             steps {
                 dir('infra') {
@@ -59,7 +58,7 @@ pipeline {
         }
               stage('apply') {
             when {
-                expression { params.action == 'apply' && params.branchName == "origin/master" }
+                expression { params.action == 'apply' }
             }
             steps {
                 dir('infra/terraform') {
@@ -79,7 +78,7 @@ pipeline {
         }
         stage('preview-destroy') {
             when {
-                expression { params.action == 'preview-destroy' || params.action == 'destroy' && params.branchName == "origin/master" }
+                expression { params.action == 'preview-destroy' || params.action == 'destroy' }
             }
             steps {
                 dir('infra/terraform') {
@@ -90,7 +89,7 @@ pipeline {
        }
         stage('destroy') {
             when {
-                expression { params.action == 'destroy' && params.branchName == "origin/master"  }
+                expression { params.action == 'destroy' }
             }
             steps {
                 dir('infra/terraform') {
