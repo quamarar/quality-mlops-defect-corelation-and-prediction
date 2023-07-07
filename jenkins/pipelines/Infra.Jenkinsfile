@@ -46,7 +46,7 @@ pipeline {
         }
         stage('approval') {
             when {
-                expression { params.action == 'apply' && params.GIT_BRANCH == 'origin/master' }
+                expression { params.action == 'apply' && params.branchName == "origin/master" }
             }
             steps {
                 dir('infra') {
