@@ -49,7 +49,7 @@ pipeline {
         }
         stage('approval') {
             when {
-                expression { params.action == 'apply' && params.branch == 'master }
+                expression { params.action == 'apply' && params.branch == 'master' }
             }
             steps {
                 dir('infra') {
