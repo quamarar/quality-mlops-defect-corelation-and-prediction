@@ -3,6 +3,13 @@ pipeline {
 
   parameters {
     string(defaultValue: "us-east-1", description: 'aws region', name: 'AWS_REGION')
+
+
+    choice(
+            choices: ['fix-123', 'master', 'PR-*'],
+            description: 'select branch',
+            name: 'branch')
+
     
     choice(
             choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
@@ -42,7 +49,7 @@ pipeline {
         }
         stage('approval') {
             when {
-                expression { params.action == 'apply' }
+                expression { params.action == 'apply' && params.branch == 'master }
             }
             steps {
                 dir('infra') {
@@ -58,7 +65,7 @@ pipeline {
         }
         stage('apply') {
             when {
-                expression { params.action == 'apply' }
+                expression { params.action == 'apply' && params.branch == 'master'}
             }
             steps {
                 dir('infra') {
@@ -68,7 +75,7 @@ pipeline {
         } 
         stage('show') {
             when {
-                expression { params.action == 'show' }
+                expression { params.action == 'show' && params.branch == 'master'}
             }
             steps {
                 dir('infra') {
@@ -78,7 +85,7 @@ pipeline {
         }
         stage('preview-destroy') {
             when {
-                expression { params.action == 'preview-destroy' || params.action == 'destroy' }
+                expression { params.action == 'preview-destroy' || params.action == 'destroy' && params.branch == 'master'}
             }
             steps {
                 dir('infra') {
@@ -89,7 +96,7 @@ pipeline {
        }
         stage('destroy') {
             when {
-                expression { params.action == 'destroy' }
+                expression { params.action == 'destroy' && params.branch == 'master' }
             }
             steps {
                 dir('infra') {
