@@ -15,7 +15,7 @@ pipeline {
   }
 
    environment {
-     BRANCH_NAME = "master"
+     GIT_BRANCH = 'origin/master'
    }
 
     stages {
@@ -45,7 +45,7 @@ pipeline {
         }
         stage('approval') {
             when {
-                expression { params.action == 'apply' && env.BRANCH_NAME = $BRANCH_NAME }
+                expression { params.action == 'apply' && env.GIT_BRANCH == 'origin/master' }
             }
             steps {
                 dir('infra') {
