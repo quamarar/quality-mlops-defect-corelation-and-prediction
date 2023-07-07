@@ -61,7 +61,7 @@ pipeline {
         }
               stage('apply') {
             when {
-                expression { params.action == 'apply' && env.BRANCH_NAME = $BRANCH_NAME }
+                expression { params.action == 'apply' env.GIT_BRANCH == 'origin/master' }
             }
             steps {
                 dir('infra/terraform') {
@@ -81,7 +81,7 @@ pipeline {
         }
         stage('preview-destroy') {
             when {
-                expression { params.action == 'preview-destroy' || params.action == 'destroy' && env.BRANCH_NAME = $BRANCH_NAME}
+                expression { params.action == 'preview-destroy' || params.action == 'destroy' && env.GIT_BRANCH == 'origin/master'}
             }
             steps {
                 dir('infra/terraform') {
@@ -92,7 +92,7 @@ pipeline {
        }
         stage('destroy') {
             when {
-                expression { params.action == 'destroy' && env.BRANCH_NAME = $BRANCH_NAME }
+                expression { params.action == 'destroy' && env.GIT_BRANCH == 'origin/master' }
             }
             steps {
                 dir('infra/terraform') {
