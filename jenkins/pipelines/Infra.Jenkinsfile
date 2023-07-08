@@ -3,6 +3,8 @@ pipeline {
 
   parameters {
     string(defaultValue: "us-east-1", description: 'aws region', name: 'AWS_REGION')
+
+
     
     choice(
             choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
@@ -19,7 +21,7 @@ pipeline {
         stage('Initialise terraform directory') {
             steps{
                 dir('infra') {
-                    sh 'terraform init -no-color -backend-config="bucket=MSIL-DCP-${ENVIRONMENT}-tfstate" -backend-config="key=MSIL-DCP-${ENVIRONMENT}/terraform.tfstate" -backend-config="region=${AWS_REGION}"'
+                    sh 'terraform init -no-color -backend-config="bucket=MSIL-DCP-${ENVIRONMENT}-tfstate" -backend-config="key=MSIL-DCP-dev/terraform.tfstate" -backend-config="region=${AWS_REGION}"'
                 }
             }
         }
@@ -36,13 +38,13 @@ pipeline {
             }
             steps{
                 dir('infra') {
-                     sh 'terraform plan -no-color  -input=false -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
+                     sh 'terraform plan -no-color  -input=false -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/dev.tfvars'
                 }
             }
         }
         stage('approval') {
             when {
-                expression { params.action == 'apply' }
+                expression { params.action == 'apply' && BRANCH_NAME == 'master' }
             }
             steps {
                 dir('infra') {
@@ -58,7 +60,7 @@ pipeline {
         }
         stage('apply') {
             when {
-                expression { params.action == 'apply' }
+                expression { params.action == 'apply' && BRANCH_NAME == 'master'}
             }
             steps {
                 dir('infra') {
@@ -68,7 +70,7 @@ pipeline {
         } 
         stage('show') {
             when {
-                expression { params.action == 'show' }
+                expression { params.action == 'show' && BRANCH_NAME == 'master'}
             }
             steps {
                 dir('infra') {
@@ -78,7 +80,7 @@ pipeline {
         }
         stage('preview-destroy') {
             when {
-                expression { params.action == 'preview-destroy' || params.action == 'destroy' }
+                expression { params.action == 'preview-destroy' || params.action == 'destroy' && BRANCH_NAME == 'master'}
             }
             steps {
                 dir('infra') {
@@ -89,7 +91,7 @@ pipeline {
        }
         stage('destroy') {
             when {
-                expression { params.action == 'destroy' }
+                expression { params.action == 'destroy' && BRANCH_NAME == 'master' }
             }
             steps {
                 dir('infra') {
