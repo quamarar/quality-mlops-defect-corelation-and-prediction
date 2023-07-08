@@ -21,7 +21,7 @@ pipeline {
         stage('Initialise terraform directory') {
             steps{
                 dir('infra') {
-                    sh 'terraform init -no-color -backend-config="bucket=MSIL-DCP-${ENVIRONMENT}-tfstate" -backend-config="key=MSIL-DCP-${ENVIRONMENT}/terraform.tfstate" -backend-config="region=${AWS_REGION}"'
+                    sh 'terraform init -no-color -backend-config="bucket=MSIL-DCP-${ENVIRONMENT}-tfstate" -backend-config="key=MSIL-DCP-dev/terraform.tfstate" -backend-config="region=${AWS_REGION}"'
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
             }
             steps{
                 dir('infra') {
-                     sh 'terraform plan -no-color  -input=false -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
+                     sh 'terraform plan -no-color  -input=false -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/dev.tfvars'
                 }
             }
         }
