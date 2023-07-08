@@ -80,7 +80,7 @@ pipeline {
         }
         stage('preview-destroy') {
             when {
-                expression { params.action == 'preview-destroy' || params.action == 'destroy' BRANCH_NAME == 'master'}
+                expression { params.action == 'preview-destroy' || params.action == 'destroy' && BRANCH_NAME == 'master'}
             }
             steps {
                 dir('infra') {
