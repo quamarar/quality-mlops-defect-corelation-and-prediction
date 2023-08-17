@@ -1,7 +1,5 @@
 pipelineJob('seed-jobs-MSIL-Inference') {
-    parameters {
-         stringParam('Folder', 'Inference','name of the folder')
-        }
+
     definition {
         cpsScm {
             scm {
