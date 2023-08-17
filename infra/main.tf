@@ -1,9 +1,12 @@
 /*===============================
-#            S3
+#            KMS
 ===============================*/
 
-resource "aws_instance" "app_server" {
-  ami           = "ami-056914720476ddd8c"
-  instance_type = "t2.micro"
+module "kms_default" {
+  source        = "../Modules/terraform-aws-kms-master"
+
+  aliases       = [
+    "${local.name_prefix}-default-key"
+  ]
 
 }
