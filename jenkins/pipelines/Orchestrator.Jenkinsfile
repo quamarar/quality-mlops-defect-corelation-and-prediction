@@ -7,7 +7,7 @@ def boolean test_results = false
            script {
            echo "Trigger Infra Pipeline"
   
-            ret= build (job: " seed-job/MSIL-Infra" ,
+            ret = build(job: " seed-job/MSIL-Infra" ,
                                 parameters: [string(defaultValue: "ap-south-1", description: 'aws region', name: 'AWS_REGION'),             
                                              choice(
                                              choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
