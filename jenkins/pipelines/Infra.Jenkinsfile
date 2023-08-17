@@ -20,6 +20,7 @@ pipeline {
     stages {
         stage('Initialise terraform directory') {
             steps{
+             withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                 dir('infra') {
                     sh 'terraform init -no-color'
                 }
@@ -27,6 +28,7 @@ pipeline {
         }
         stage('TerraformValidate') {
             steps{
+             withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                 dir('infra') {
                     sh "terraform validate"
                 }
@@ -37,6 +39,7 @@ pipeline {
                 expression { params.action == 'plan' || params.action == 'apply'  }
             }
             steps{
+                withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                 dir('infra') {
                      sh 'terraform plan -no-color  -input=false -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/dev.tfvars'
                 }
@@ -47,6 +50,7 @@ pipeline {
                 expression { params.action == 'apply' && BRANCH_NAME == 'master' }
             }
             steps {
+               withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                 dir('infra') {
                 sh 'terraform show -no-color tfplan > tfplan.txt'
                 script {
@@ -63,6 +67,7 @@ pipeline {
                 expression { params.action == 'apply' && BRANCH_NAME == 'master'}
             }
             steps {
+               withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                 dir('infra') {
                 sh 'terraform apply -no-color -input=false tfplan'
             }
@@ -73,6 +78,7 @@ pipeline {
                 expression { params.action == 'show' && BRANCH_NAME == 'master'}
             }
             steps {
+               withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                 dir('infra') {
                 sh 'terraform show -no-color'
             }
@@ -83,6 +89,7 @@ pipeline {
                 expression { params.action == 'preview-destroy' || params.action == 'destroy' && BRANCH_NAME == 'master'}
             }
             steps {
+               withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                 dir('infra') {
                 sh 'terraform plan -no-color -destroy -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/${ENVIRONMENT}.tfvars'
                 sh 'terraform show -no-color tfplan > tfplan.txt'
@@ -94,6 +101,7 @@ pipeline {
                 expression { params.action == 'destroy' && BRANCH_NAME == 'master' }
             }
             steps {
+               withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                 dir('infra') {
                 script {
                     def plan = readFile 'tfplan.txt'
