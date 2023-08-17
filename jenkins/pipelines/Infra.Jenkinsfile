@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   parameters {
-    string(defaultValue: "us-east-1", description: 'aws region', name: 'AWS_REGION')
+    string(defaultValue: "ap-south-1", description: 'aws region', name: 'AWS_REGION')
 
 
     
@@ -21,7 +21,7 @@ pipeline {
         stage('Initialise terraform directory') {
             steps{
                 dir('infra') {
-                    sh 'terraform init -no-color -backend-config="bucket=MSIL-DCP-${ENVIRONMENT}-tfstate" -backend-config="key=MSIL-DCP-dev/terraform.tfstate" -backend-config="region=${AWS_REGION}"'
+                    sh 'terraform init -no-color'
                 }
             }
         }
