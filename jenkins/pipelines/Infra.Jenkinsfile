@@ -21,7 +21,7 @@ pipeline {
         stage('Initialise terraform directory') {
             steps{
                 dir('infra') {
-                    sh 'terraform init -no-color -backend-config="key=msil-mvp-tfstate/terraform.tfstate"'
+                    sh 'terraform init -reconfigure -no-color -backend-config="key=msil-mvp-tfstate/terraform.tfstate"'
                 }
             }
         }
