@@ -36,3 +36,14 @@
   
 // }
 // }
+ pipeline {
+  agent any
+
+   stages {
+     stage("local") {
+      steps {
+          echo "hello-world"
+          }
+       }
+    }
+
