@@ -13,5 +13,5 @@ terraform {
 }
 
 provider "aws" {
-  region = var.Deployment_Region
+  region = "ap-south-1"
 }
