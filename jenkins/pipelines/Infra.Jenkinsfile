@@ -21,10 +21,13 @@ pipeline {
         stage('Initialise terraform directory') {
             steps{
                 dir('infra') {
+                 withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
+                     {
                     sh 'terraform init -reconfigure -no-color -backend-config="key=msil-mvp-tfstate/terraform.tfstate"'
                 }
             }
         }
+     }
         stage('TerraformValidate') {
             steps{
                 dir('infra') {
