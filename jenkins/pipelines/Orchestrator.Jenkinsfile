@@ -1,49 +1,35 @@
-// def boolean test_results = false
-// pipeline {
-//   agent any
-
-//   stages {
-//     stage("local") {
-//       steps {
-//         Pipeline()
-//         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-//         script { test_results = true }
-//         }
-//       }
-//     }
- 
-//     stage("triggerinfra pipeline") {
-//         steps {
-//           script {
-//            if( test_results == true ) {
-//             build job: "seed-jobs-MSIL-Infra" ,
-//                 propagate: false, wait: true }
-//              else
-//                { This job is failed}
-//          }
-//       } 
-//     }
-   
-  
-
-//     stage("triggerinference pipeline") {
-//         steps {
-//            build job: "seed-jobs-MSIL-Inference" ,
-
-//                 propagate: true, wait: true }   
-
-//     }
-  
-// }
-// }
+def boolean test_results = false
  pipeline {
-  agent any
+   agent any
+ 
+     stage("triggerinfra pipeline") {
+         steps {
+           script {
+           echo "Trigger Infra Pipeline"
+  
+            ret= build (job: " seed-job/MSIL-Infra" ,
+                                parameters: [string(defaultValue: "ap-south-1", description: 'aws region', name: 'AWS_REGION'),             
+                                             choice(
+                                             choices: ['plan', 'apply', 'show', 'preview-destroy', 'destroy'],
+                                             description: 'Terraform action to apply',
+                                              name: 'action'),
+                                              choice(
+                                              choices: ['dev', 'uat', 'prod'],
+                                              description: 'deployment environment',
+                                               name: 'ENVIRONMENT')],
+                                               propagate: true, wait: true )
 
-   stages {
-     stage("local") {
-      steps {
-          echo "hello-world"
+                                              echo ret.result
+                                              currentBuild.result = ret.result
+                
+               
+    
           }
-       }
-    }
+       } 
+     }
+   }
+  
+
+
+
 
