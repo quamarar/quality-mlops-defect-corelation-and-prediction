@@ -31,10 +31,13 @@ pipeline {
         stage('TerraformValidate') {
             steps{
                 dir('infra') {
+                  withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
+                   {
                     sh "terraform validate"
                 }
             }
-        }  
+        } 
+   }
         stage('Terraformplan') {
             when {
                 expression { params.action == 'plan' || params.action == 'apply'  }
