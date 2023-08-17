@@ -1,4 +1,4 @@
-pipelineJob('seed-job-MSIL-Orchestrator') {
+pipelineJob('seed-job/MSIL-Orchestrator') {
 
 
     definition {
