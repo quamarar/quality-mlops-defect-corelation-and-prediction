@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "MSIL-MVP-tfstate"
+    bucket         = "msil-mvp-tfstate"
     region         = "ap-south-1"
     encrypt        = true
   }
