@@ -294,28 +294,28 @@ module "ecr_registry_processing" {
   repository_name = "${local.name_prefix}/${var.processing-private-ecr-config.repository_name}"
 
   # Registry Policy
-  create_registry_policy = var.processing_ecr-registry-config.create_registry_policy
-  registry_policy        = data.aws_iam_policy_document.registry_processing.json
+  #create_registry_policy = var.processing_ecr-registry-config.create_registry_policy
+  #registry_policy        = data.aws_iam_policy_document.registry_processing.json
 
   #Registry Pull Through Cache Rules
-  registry_pull_through_cache_rules = {
-    pub = {
-      ecr_repository_prefix = var.processing_ecr-registry-config.ecr_repository_prefix
-      upstream_registry_url = var.processing_ecr-registry-config.upstream_registry_url
-    }
-  }
+  #registry_pull_through_cache_rules = {
+   # pub = {
+     # ecr_repository_prefix = var.processing_ecr-registry-config.ecr_repository_prefix
+      #upstream_registry_url = var.processing_ecr-registry-config.upstream_registry_url
+    #}
+  #}
 
     # Registry Scanning Configuration
-  manage_registry_scanning_configuration = var.processing_ecr-registry-config.manage_registry_scanning_configuration
-  registry_scan_type                     = var.processing_ecr-registry-config.registry_scan_type
-  registry_scan_rules = [
-    {
-      scan_frequency = "SCAN_ON_PUSH"
-      filter         = "*"
-      filter_type    = "WILDCARD"
-      }
-  ]
-}
+  #manage_registry_scanning_configuration = var.processing_ecr-registry-config.manage_registry_scanning_configuration
+  #registry_scan_type                     = var.processing_ecr-registry-config.registry_scan_type
+  #registry_scan_rules = [
+   # {
+    #  scan_frequency = "SCAN_ON_PUSH"
+     # filter         = "*"
+      #filter_type    = "WILDCARD"
+      #}
+  #]
+#}
 
 /*===============================
 #           ECR
@@ -358,25 +358,25 @@ module "ecr_registry_training" {
   repository_name = "${local.name_prefix}/${var.training-private-ecr-config.repository_name}"
 
   # Registry Policy
-  create_registry_policy = var.training_ecr-registry-config.create_registry_policy
-  registry_policy        = data.aws_iam_policy_document.registry_training.json
+ # create_registry_policy = var.training_ecr-registry-config.create_registry_policy
+  #registry_policy        = data.aws_iam_policy_document.registry_training.json
 
   #Registry Pull Through Cache Rules
-  registry_pull_through_cache_rules = {
-    pub = {
-      ecr_repository_prefix = var.training_ecr-registry-config.ecr_repository_prefix
-      upstream_registry_url = var.training_ecr-registry-config.upstream_registry_url
-    }
-  }
+  #registry_pull_through_cache_rules = {
+   # pub = {
+    #  ecr_repository_prefix = var.training_ecr-registry-config.ecr_repository_prefix
+     # upstream_registry_url = var.training_ecr-registry-config.upstream_registry_url
+    #}
+  #}
 
     # Registry Scanning Configuration
-  manage_registry_scanning_configuration = var.training_ecr-registry-config.manage_registry_scanning_configuration
-  registry_scan_type                     = var.training_ecr-registry-config.registry_scan_type
-  registry_scan_rules = [
-    {
-      scan_frequency = "SCAN_ON_PUSH"
-      filter         = "*"
-      filter_type    = "WILDCARD"
-      }
-  ]
-}
+  #manage_registry_scanning_configuration = var.training_ecr-registry-config.manage_registry_scanning_configuration
+  #registry_scan_type                     = var.training_ecr-registry-config.registry_scan_type
+  #registry_scan_rules = [
+   # {
+    #  scan_frequency = "SCAN_ON_PUSH"
+     # filter         = "*"
+      #filter_type    = "WILDCARD"
+      #}
+  #]
+#}/*
