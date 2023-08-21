@@ -315,7 +315,7 @@ module "ecr_registry_processing" {
       #filter_type    = "WILDCARD"
       #}
   #]
-#}
+}
 
 /*===============================
 #           ECR
@@ -379,4 +379,4 @@ module "ecr_registry_training" {
       #filter_type    = "WILDCARD"
       #}
   #]
-#}/*
+}
