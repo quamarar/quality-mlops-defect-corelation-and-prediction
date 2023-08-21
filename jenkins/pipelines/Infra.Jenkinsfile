@@ -105,7 +105,7 @@ pipeline {
                 dir('infra') {
                 withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
               {
-                sh 'terraform plan -no-color -destroy -out=tfplan -var "aws_region=${AWS_REGION}" --var-file=environments/dev.tfvars.json'
+                sh 'terraform plan -no-color -destroy -out=tfplan  --var-file=environments/dev.tfvars.json'
                 sh 'terraform show -no-color tfplan > tfplan.txt'
             }
           }
