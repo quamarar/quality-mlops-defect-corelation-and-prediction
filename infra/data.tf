@@ -16,8 +16,8 @@ data "aws_iam_policy_document" "glue-job-policy" {
           "arn:aws:iam::aws:policy/AmazonS3FullAccess",
           "arn:aws:iam::aws:policy/CloudWatchFullAccess",
           "arn:aws:iam::aws:policy/AmazonKinesisFullAccess",
-          "arn:aws:iam::aws:policy/AWSGlueConsoleFullAccess" ,
-          ""
+          "arn:aws:iam::aws:policy/AWSGlueConsoleFullAccess"
+          
          ]
     }
 }
