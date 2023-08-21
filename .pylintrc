@@ -1,0 +1,5 @@
+[MASTER]
+disable=consider-using-f-string
+
+[MAIN]
+max-line-length=140
