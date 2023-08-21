@@ -25,7 +25,7 @@ pipeline {
 
         stage('login to ecr') {
         steps {
-          sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
+          sh 'aws ecr get-login-password --region ap-south-1 | sudo docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
           sh 'sudo docker push 731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-preprocessing:latest:${GIT_COMMIT_HASH}'
        }
     }
