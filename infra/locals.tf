@@ -3,7 +3,7 @@ locals {
 }
 
 locals {
-  name_prefix = "${var.application-name}-${var.stage-name}-${local.region-short}"
+  name_prefix = "${var.application-name}-${var.stage-name}-${var.env}-${local.region-short}"
 
   common_instance_user_data = <<-EOT
     #!/bin/bash
