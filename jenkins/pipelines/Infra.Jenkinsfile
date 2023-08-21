@@ -53,7 +53,7 @@ pipeline {
         }
         stage('approval') {
             when {
-                expression { params.action == 'apply' && BRANCH_NAME == 'master' }
+                expression { params.action == 'apply' }
             }
             steps {
               
@@ -72,7 +72,7 @@ pipeline {
         }
         stage('apply') {
             when {
-                expression { params.action == 'apply' && BRANCH_NAME == 'master'}
+                expression { params.action == 'apply'}
             }
             steps {
                 dir('infra') {
@@ -85,7 +85,7 @@ pipeline {
         } 
         stage('show') {
             when {
-                expression { params.action == 'show' && BRANCH_NAME == 'master'}
+                expression { params.action == 'show'}
             }
             steps {
                 dir('infra') {
@@ -98,7 +98,7 @@ pipeline {
      }
         stage('preview-destroy') {
             when {
-                expression { params.action == 'preview-destroy' || params.action == 'destroy' && BRANCH_NAME == 'master'}
+                expression { params.action == 'preview-destroy' || params.action == 'destroy'}
             }
             steps {
                
@@ -113,7 +113,7 @@ pipeline {
      }
         stage('destroy') {
             when {
-                expression { params.action == 'destroy' && BRANCH_NAME == 'master' }
+                expression { params.action == 'destroy'}
             }
             steps {
               
