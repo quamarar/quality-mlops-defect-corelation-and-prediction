@@ -25,9 +25,14 @@ pipeline {
 
         stage('login to ecr') {
         steps {
-          sh 'aws ecr get-login-password --region ap-south-1 | sudo docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
-          sh 'sudo docker push 731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-preprocessing:${GIT_COMMIT_HASH}'
-       }
+          dir ('model/preprocessing') {
+            withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
+            {
+            sh 'aws ecr get-login-password --region ap-south-1 | sudo docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
+            sh 'sudo docker push 731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-preprocessing:${GIT_COMMIT_HASH}'
+           }
     }
+   }
   }
+ }
 }
