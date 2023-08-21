@@ -35,8 +35,8 @@ data "aws_iam_policy_document" "registry" {
     ]
 
     resources = [
-      module.ecr_registry_processing.repository_arn_processing,
-      module.ecr_registry_training.repository_arn_training
+      module.ecr_registry_processing.repository_arn,
+      module.ecr_registry_training.repository_arn
     ]
   }
 }
