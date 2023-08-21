@@ -326,7 +326,7 @@ module "ecr_registry_processing" {
   #Registry Pull Through Cache Rules
   registry_pull_through_cache_rules = {
     pub = {
-      ecr_repository_prefix = var.processing_ecr-registry-configg.ecr_repository_prefix
+      ecr_repository_prefix = var.processing_ecr-registry-config.ecr_repository_prefix
       upstream_registry_url = var.processing_ecr-registry-config.upstream_registry_url
     }
   }
