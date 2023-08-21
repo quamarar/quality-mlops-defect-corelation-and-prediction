@@ -15,7 +15,3 @@ output "kms_default" {
 output "internal-s3-bucket" {
   value       = module.internal-s3-bucket.s3_bucket_id
 }
-
-output "shared-s3-bucket" {
-  value       = module.shared-s3-bucket.s3_bucket_id
-}
