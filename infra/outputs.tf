@@ -40,3 +40,32 @@ output "glue-job-role-arn" {
   description = "ARN of IAM role"
   value       = module.glue-job-role.iam_role_arn
 }
+
+/*===============================
+#            glue-job
+===============================*/
+
+output "glue-job-gatekeeper" {
+  description = "Glue job gatekeeper name"
+   value = module.glue-job-gatekeeper.name
+}
+
+output "glue-job-submit_training_job_awsbatch_statetable" {
+  description = "Glue job submit training job awsbatch statetable name"
+  value = module.glue-job-submit_training_job_awsbatch_statetable.name
+}
+
+output "glue-job-training_job_awsbatch_status_check" {
+  description = "Glue job submit training job status check name"
+  value = module.glue-job-training_job_awsbatch_status_check.name
+}
+
+output "glue-job-evaluation_summary" {
+  description = "Glue job evaluation summary name"
+  value = module.glue-job-evaluation_summary.name
+}
+
+output "glue-job-clean_up_job" {
+  description = "Glue job clean up job name"
+  value = module.glue-job-clean_up_job.name
+}

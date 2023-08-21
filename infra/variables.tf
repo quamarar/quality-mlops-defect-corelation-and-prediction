@@ -42,3 +42,27 @@ variable "ssm-parameter-training-ecr-training" {
 variable "ssm-parameters-glue-job-config" {
   type = map(any)
 }
+
+/*===============================
+#   Glue-job
+===============================*/
+
+variable "glue-job-gatekeeper-config" {
+   type = map(any) 
+}
+
+variable "glue-job-submit_training_job_awsbatch_statetable-config" {
+     type = map(any) 
+}
+
+variable "glue-job-training_job_awsbatch_status_check-config" {
+     type = map(any) 
+}
+
+variable "glue-job-evaluation_summary-config" {
+     type = map(any) 
+}
+
+variable "glue-job-clean_up_job-config" {
+     type = map(any) 
+}

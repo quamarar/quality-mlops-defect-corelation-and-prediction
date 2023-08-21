@@ -67,7 +67,7 @@ module "ssm-parameters-glue-job" {
 ===============================*/
 
 module "glue-job-policy" {
-  source = "../Modules/iam-policy"
+  source = "git::https://github.com/quamarar/terraform-common-module.git//iam-policy?ref=master"
 
   create_policy            = true
   name                     = "${local.name_prefix}-glue-job-policy"
@@ -77,7 +77,7 @@ module "glue-job-policy" {
 }
 
 module "glue-job-role" {
-  source = "../Modules/iam-role"
+  source = "git::https://github.com/quamarar/terraform-common-module.git//iam-role?ref=master"
 
   create_role             = true
   role_name               = "${local.name_prefix}-glue-job-role"
@@ -93,5 +93,161 @@ module "glue-job-role" {
     "arn:aws:iam::aws:policy/AmazonS3FullAccess",
     "arn:aws:iam::aws:policy/AWSGlueConsoleFullAccess"
   ]
+}
+
+/*===============================
+#           Glue Job
+===============================*/
+
+
+module "glue-job-gatekeeper" {
+  source = "git::https://github.com/quamarar/terraform-common-module.git//glue-job?ref=master"
+
+  job_name          = "${local.name_prefix}-${var.glue-job-gatekeeper-config.name}"
+  job_description   = "Glue Job for-${var.glue-job-gatekeeper-config.name}"
+  role_arn          = module.glue-job-role.iam_role_arn
+  max_capacity      =  var.glue-job-gatekeeper-config.max_capacity 
+  max_retries       = var.glue-job-gatekeeper-config.max_retries 
+  timeout           =  var.glue-job-gatekeeper-config.timeout
+
+  command = {
+    name            = "pythonshell"
+    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-gatekeeper-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    python_version  = 3.9
+  }
+
+    default_arguments = {
+    "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
+    "--enable-glue-datacatalog"   = "true"
+    "--enable-job-insights"       = "false"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--job-language"              = "python"
+    "--region"                    = "${local.region-short}"
+    "--train_inputtable_name"     = "traininputtable"
+    "--train_metatable_name"      = "trainmetatable"
+    "--train_statetable_name"     = "trainstatetable"
+  }
+}
+
+module "glue-job-submit_training_job_awsbatch_statetable" {
+  source = "git::https://github.com/quamarar/terraform-common-module.git//glue-job?ref=master"
+
+  job_name          = "${local.name_prefix}-${var.glue-job-submit_training_job_awsbatch_statetable-config.name}"
+  job_description   = "Glue Job for-${var.glue-job-submit_training_job_awsbatch_statetable-config.name}"
+  role_arn          = module.glue-job-role.iam_role_arn
+  max_capacity      =  var.glue-job-submit_training_job_awsbatch_statetable-config.max_capacity 
+  max_retries       = var.glue-job-submit_training_job_awsbatch_statetable-config.max_retries 
+  timeout           =  var.glue-job-submit_training_job_awsbatch_statetable-config.timeout
+
+  command = {
+    name            = "pythonshell"
+    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-submit_training_job_awsbatch_statetable-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    python_version  = 3.9
+  }
+
+    default_arguments = {
+    "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
+    "--enable-glue-datacatalog"   = "true"
+    "--enable-job-insights"       = "false"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--job-language"              = "python"
+    "--region"                    = "${local.region-short}"
+    "--train_inputtable_name"     = "traininputtable"
+    "--train_metatable_name"      = "trainmetatable"
+    "--train_statetable_name"     = "trainstatetable"
+  }
+}
+
+module "glue-job-training_job_awsbatch_status_check" {
+  source = "git::https://github.com/quamarar/terraform-common-module.git//glue-job?ref=master"
+
+  job_name          = "${local.name_prefix}-${var.glue-job-training_job_awsbatch_status_check-config.name}"
+  job_description   = "Glue Job for-${var.glue-job-training_job_awsbatch_status_check-config.name}"
+  role_arn          = module.glue-job-role.iam_role_arn
+  max_capacity      =  var.glue-job-training_job_awsbatch_status_check-config.max_capacity 
+  max_retries       = var.glue-job-training_job_awsbatch_status_check-config.max_retries 
+  timeout           =  var.glue-job-training_job_awsbatch_status_check-config.timeout
+
+  command = {
+    name            = "pythonshell"
+    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-training_job_awsbatch_status_check-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    python_version  = 3.9
+  }
+
+    default_arguments = {
+    "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
+    "--enable-glue-datacatalog"   = "true"
+    "--enable-job-insights"       = "false"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--job-language"              = "python"
+    "--region"                    = "${local.region-short}"
+    "--train_inputtable_name"     = "traininputtable"
+    "--train_metatable_name"      = "trainmetatable"
+    "--train_statetable_name"     = "trainstatetable"
+  }
+}
+
+module "glue-job-evaluation_summary" {
+  source = "git::https://github.com/quamarar/terraform-common-module.git//glue-job?ref=master"
+
+  job_name          = "${local.name_prefix}-${var.glue-job-evaluation_summary-config.name}"
+  job_description   = "Glue Job for-${var.glue-job-evaluation_summary-config.name}"
+  role_arn          = module.glue-job-role.iam_role_arn
+  number_of_workers      =  var.glue-job-evaluation_summary-config.number_of_workers
+  max_retries       = var.glue-job-evaluation_summary-config.max_retries 
+  timeout           =  var.glue-job-evaluation_summary-config.timeout
+  worker_type       = var.glue-job-evaluation_summary-config.worker_type
+  glue_version      = var.glue-job-evaluation_summary-config.glue_version
+
+  command = {
+    name            = "glueetl"
+    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-evaluation_summary-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    python_version  = 3
+  }
+
+    default_arguments = {
+    "--additional-python-modules" = "pythena==1.6.0,pynamodb==5.5.0,boto3==1.28.27,ndjson~=0.3.1"
+    "--enable-glue-datacatalog"   = "true"
+    "--enable-job-insights"       = "false"
+    "--enable-metrics"            = "true"
+    "--enable-spark-ui"           = "true"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--job-language"              = "python"
+    "--region"                    = "${local.region-short}"
+    "--train_inputtable_name"     = "traininputtable"
+    "--train_metatable_name"      = "trainmetatable"
+    "--train_statetable_name"     = "trainstatetable"
+    "--job-bookmark-option"       = "job-bookmark-disable"
+  }
+}
+
+
+module "glue-job-clean_up_job" {
+  source = "git::https://github.com/quamarar/terraform-common-module.git//glue-job?ref=master"
+
+  job_name          = "${local.name_prefix}-${var.glue-job-clean_up_job-config.name}"
+  job_description   = "Glue Job for-${var.glue-job-clean_up_job-config.name}"
+  role_arn          = module.glue-job-role.iam_role_arn
+  max_capacity      =  var.glue-job-clean_up_job-config.max_capacity 
+  max_retries       = var.glue-job-clean_up_job-config.max_retries 
+  timeout           =  var.glue-job-clean_up_job-config.timeout
+
+  command = {
+    name            = "pythonshell"
+    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-clean_up_job-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    python_version  = 3.9
+  }
+
+    default_arguments = {
+    "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
+    "--enable-glue-datacatalog"   = "true"
+    "--enable-job-insights"       = "false"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--job-language"              = "python"
+    "--region"                    = "${local.region-short}"
+    "--train_inputtable_name"     = "traininputtable"
+    "--train_metatable_name"      = "trainmetatable"
+    "--train_statetable_name"     = "trainstatetable"
+  }
 }
 
