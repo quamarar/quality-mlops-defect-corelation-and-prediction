@@ -27,3 +27,18 @@ variable "internal-s3-config" {
 }
 
 
+/*===============================
+#   SSM Parameters Variables
+===============================*/
+
+variable "ssm-parameter-training-ecr-preprocessing" {
+  type        = map(any)
+}
+
+variable "ssm-parameter-training-ecr-training" {
+  type        = map(any)
+}
+
+variable "ssm-parameters-glue-job-config" {
+  type = map(any)
+}
