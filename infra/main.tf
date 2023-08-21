@@ -356,13 +356,13 @@ module "ecr_registry_training" {
   #Registry Pull Through Cache Rules
   registry_pull_through_cache_rules = {
     pub = {
-      ecr_repository_prefix = var.training_ecr-registry-configg.ecr_repository_prefix
+      ecr_repository_prefix = var.training_ecr-registry-config.ecr_repository_prefix
       upstream_registry_url = var.training_ecr-registry-config.upstream_registry_url
     }
   }
 
     # Registry Scanning Configuration
-  manage_registry_scanning_configuration = var.trainingg_ecr-registry-config.manage_registry_scanning_configuration
+  manage_registry_scanning_configuration = var.training_ecr-registry-config.manage_registry_scanning_configuration
   registry_scan_type                     = var.training_ecr-registry-config.registry_scan_type
   registry_scan_rules = [
     {
