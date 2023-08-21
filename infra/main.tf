@@ -61,3 +61,37 @@ module "ssm-parameters-glue-job" {
   value                   = var.ssm-parameters-glue-job-config.value
 
 }
+
+/*===============================
+#            IAM
+===============================*/
+
+module "glue-job-policy" {
+  source = "../Modules/iam-policy"
+
+  create_policy            = true
+  name                     = "${local.name_prefix}-glue-job-policy"
+  path                     = "/"
+  description              = "Policy for Glue job"
+  policy                   = data.aws_iam_policy_document.glue-job-policy.json
+}
+
+module "glue-job-role" {
+  source = "../Modules/iam-role"
+
+  create_role             = true
+  role_name               = "${local.name_prefix}-glue-job-role"
+  role_description        = "Role for Glue job"
+  trusted_role_actions    = ["sts:AssumeRole"]
+  trusted_role_services   = ["glue.amazonaws.com"]
+  max_session_duration    = 3600
+  custom_role_policy_arns = [
+    module.glue-job-policy.arn,
+    "arn:aws:iam::aws:policy/CloudWatchFullAccess",
+    "arn:aws:iam::aws:policy/AmazonKinesisFullAccess",
+    "arn:aws:iam::aws:policy/IAMFullAccess",
+    "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+    "arn:aws:iam::aws:policy/AWSGlueConsoleFullAccess"
+  ]
+}
+

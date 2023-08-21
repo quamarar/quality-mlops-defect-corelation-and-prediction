@@ -31,3 +31,12 @@ output "ssm-parameter-training-ecr-training" {
 output "ssm_parameter_name_glue_job" {
  value = module.ssm-parameters-glue-job.ssm_parameter_name
 }
+
+/*===============================
+#            IAM
+===============================*/
+
+output "glue-job-role-arn" {
+  description = "ARN of IAM role"
+  value       = module.glue-job-role.iam_role_arn
+}
