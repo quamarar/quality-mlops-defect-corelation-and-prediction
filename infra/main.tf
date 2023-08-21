@@ -321,7 +321,7 @@ module "ecr_registry_processing" {
 
   # Registry Policy
   create_registry_policy = var.processing_ecr-registry-config.create_registry_policy
-  registry_policy        = data.aws_iam_policy_document.registry.json
+  registry_policy        = data.aws_iam_policy_document.registry_processing.json
 
   #Registry Pull Through Cache Rules
   registry_pull_through_cache_rules = {
@@ -351,7 +351,7 @@ module "ecr_registry_training" {
 
   # Registry Policy
   create_registry_policy = var.training_ecr-registry-config.create_registry_policy
-  registry_policy        = data.aws_iam_policy_document.registry.json
+  registry_policy        = data.aws_iam_policy_document.registry_training.json
 
   #Registry Pull Through Cache Rules
   registry_pull_through_cache_rules = {

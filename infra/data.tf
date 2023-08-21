@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "glue-job-policy" {
 }
 
 
-data "aws_iam_policy_document" "registry" {
+data "aws_iam_policy_document" "registry_processing" {
   statement {
     principals {
       type        = "AWS"
@@ -35,7 +35,23 @@ data "aws_iam_policy_document" "registry" {
     ]
 
     resources = [
-      module.ecr_registry_processing.repository_arn,
+      module.ecr_registry_processing.repository_arn
+    ]
+  }
+}
+
+data "aws_iam_policy_document" "registry_training" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+    }
+
+    actions = [
+      "ecr:ReplicateImage",
+    ]
+
+    resources = [
       module.ecr_registry_training.repository_arn
     ]
   }
