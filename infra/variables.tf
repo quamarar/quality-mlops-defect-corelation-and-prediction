@@ -66,3 +66,23 @@ variable "glue-job-evaluation_summary-config" {
 variable "glue-job-clean_up_job-config" {
      type = map(any) 
 }
+
+/*===============================
+#    ECR
+===============================*/
+
+variable "processing-private-ecr-config" {
+   type = map(any)
+}
+
+variable "training-private-ecr-config" {
+   type = map(any)
+}
+
+variable "processing_ecr-registry-config" {
+    type = map(any)
+}
+
+variable "training_ecr-registry-config" {
+    type = map(any)
+}
