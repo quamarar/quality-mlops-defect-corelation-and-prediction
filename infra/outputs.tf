@@ -90,7 +90,7 @@ output "repository_url_processing" {
   value       = module.ecr_registry_processing.repository_url
 }
 
-output "repository_url_training"" {
+output "repository_url_training" {
   description = "The URL of the repository (in the form `aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName`)"
   value       = module.ecr_registry_training.repository_url
 }
