@@ -26,7 +26,7 @@ pipeline {
 
         stage ('do s3 sync') {
           when {
-            expression{ env.GIT_file_change == 'model/preprocessing/preprocessing.py'}
+            expression { "${env.GIT_file_change}" == 'model/preprocessing/preprocessing.py'}
           }
           steps {
                 sh "echo sync done"
