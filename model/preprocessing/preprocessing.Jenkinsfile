@@ -1,5 +1,4 @@
 
-def GIT_file_change
 
 pipeline {
   agent any
@@ -7,7 +6,7 @@ pipeline {
 
   environment {
     GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)  
-    
+    GIT_file_change =  sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
   }
   
  stages {
@@ -28,7 +27,7 @@ pipeline {
 
         stage ('do s3 sync') {
           when {
-            expression{ GIT_file_change == 'model/preprocessing/preprocessing.py'}
+            expression{ env.GIT_file_change == 'model/preprocessing/preprocessing.py'}
           }
           steps {
                 sh "echo sync done"
