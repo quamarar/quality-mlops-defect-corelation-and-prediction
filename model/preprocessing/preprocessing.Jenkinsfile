@@ -1,11 +1,10 @@
-
 pipeline {
   agent any
 
 
   environment {
     GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)  
-    GIT_file_change = sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
+    GIT_file_change =  sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
   }
   
  stages {
@@ -25,15 +24,20 @@ pipeline {
         }
 
         stage ('do s3 sync') {
-          when {
-            expression { "${env.GIT_file_change}" == 'model/preprocessing/preprocessing.py'}
-          }
           steps {
+            dir ('model') {
+            script{
+              def file_change = sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
+              if(file_change == 'model/preprocessing/preprocessing.py) {
                 sh "echo sync done"
               }
+              else {
+                sh "echo no change"
+              }
             }
-          
-        
+          }
+          }
+        }
         
         stage('build docker image') {
             steps {
