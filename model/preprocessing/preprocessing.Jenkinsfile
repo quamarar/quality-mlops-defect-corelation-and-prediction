@@ -3,7 +3,8 @@ pipeline {
 
 
   environment {
-    GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)   
+    GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)  
+    GIT_file_change =  sh(script: "git log -m -1 --name-only --pretty="format:" returnStdout: true)
   }
   
  stages {
@@ -13,6 +14,14 @@ pipeline {
 
            }
          }
+
+        stage('detect file change in folder model') {
+          steps {
+            dir ('model') {
+              echo "${GIT_file_change}"
+          }
+
+        }
         
         stage('build docker image') {
             steps {
