@@ -20,11 +20,11 @@ variable "env" {
 #         S3 Variables
 ===============================*/
 
-variable "internal-s3-config" {
-  type        = any
-  description = "S3 bucket configurations"
-  default     = null
-}
+#variable "internal-s3-config" {
+  #type        = any
+  #description = "S3 bucket configurations"
+  #default     = null
+#}
 
 
 /*===============================
