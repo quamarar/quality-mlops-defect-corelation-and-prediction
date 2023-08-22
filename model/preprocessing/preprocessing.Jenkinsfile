@@ -4,7 +4,7 @@ pipeline {
 
   environment {
     GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)  
-    GIT_file_change =  sh(script: "git log -m -1 --name-only --pretty="format:" returnStdout: true)
+    GIT_file_change =  sh(script: "git log -m -1 --name-only --pretty="format:"" returnStdout: true)
   }
   
  stages {
