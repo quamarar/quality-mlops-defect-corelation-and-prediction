@@ -86,3 +86,12 @@ variable "processing_ecr-registry-config" {
 variable "training_ecr-registry-config" {
     type = map(any)
 }
+
+/*===============================
+#    step-function
+===============================*/
+
+
+variable "step_function_name" {
+  type = string
+}
