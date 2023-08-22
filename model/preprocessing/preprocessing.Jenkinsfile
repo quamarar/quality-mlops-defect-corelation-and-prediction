@@ -26,7 +26,8 @@ pipeline {
         stage ('do s3 sync') {
           steps {
             script{
-              if(env.GIT_file_change == "model/preprocessing/preprocessing.py") {
+              def file_change = sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
+              if(file_change == "model/preprocessing/preprocessing.py") {
                 sh "echo sync done"
               }
               else {
