@@ -385,18 +385,3 @@ module "ecr_registry_training" {
 /*===============================
 #           Step Function
 ===============================*/
-
-module "step_function" {
-  source = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-step-functions?ref=master"
-
-  name = "${local.name_prefix}-${var.step_function_name}"
-
-  type = "standard"
-
-  definition = local.definition_template1
-
-  logging_configuration = {
-    include_execution_data = true
-    level                  = "ALL"
-  }
-  }

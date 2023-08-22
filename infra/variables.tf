@@ -92,6 +92,6 @@ variable "training_ecr-registry-config" {
 ===============================*/
 
 
-variable "step_function_name" {
-  type = string
-}
+#variable "step_function_name" {
+  #type = string
+#}
