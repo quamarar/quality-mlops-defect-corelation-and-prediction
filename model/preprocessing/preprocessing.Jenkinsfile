@@ -20,7 +20,7 @@ pipeline {
             dir ('model') {
               echo "${GIT_file_change}"
           }
-
+        }
         }
         
         stage('build docker image') {
