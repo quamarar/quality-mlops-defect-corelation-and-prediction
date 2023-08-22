@@ -39,7 +39,8 @@ pipeline {
             dir ('model/preprocessing') {
             withAWS(roleAccount:'731580992380', role:'Cross-Account-role')
             {
-            sh 'aws ssm put-parameter --name "/mvp/development/training-job/ecr_preprocessing" --type String  --value "${GIT_COMMIT_HASH}" --overwrite'
+            sh 'aws ssm put-parameter --name "/mvp/development/training-job/ecr_preprocessing" --type "String"  --value "${GIT_COMMIT_HASH}" --overwrite'
+            sh 'aws ssm get-parameters --names "/mvp/development/training-job/ecr_preprocessing"'
 
          }
 
