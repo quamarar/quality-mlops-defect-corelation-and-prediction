@@ -24,18 +24,15 @@ pipeline {
         }
 
         stage ('do s3 sync') {
+          when {
+            expression{env.GIT_file_change == 'model/preprocessing/preprocessing.py'}
+          }
           steps {
-            script{
-              def file_change = sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
-              if(file_change == 'model/preprocessing/preprocessing.py') {
                 sh "echo sync done"
               }
-              else {
-                sh "echo no change"
-              }
             }
-          }
-        }
+          
+        
         
         stage('build docker image') {
             steps {
