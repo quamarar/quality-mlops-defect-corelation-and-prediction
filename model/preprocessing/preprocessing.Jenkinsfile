@@ -22,6 +22,19 @@ pipeline {
           }
         }
         }
+
+        stage ('do s3 sync') {
+          steps {
+            script{
+              if(env.GIT_file_change == 'model/preprocessing/preprocessing.py') {
+                echo 'sync done'
+              }
+              else {
+                sh "echo no change"
+              }
+            }
+          }
+        }
         
         stage('build docker image') {
             steps {
