@@ -1,10 +1,13 @@
+
+def GIT_file_change
+
 pipeline {
   agent any
 
 
   environment {
     GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)  
-    GIT_file_change =  sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
+    
   }
   
  stages {
@@ -18,14 +21,14 @@ pipeline {
         stage('detect file change in folder model') {
           steps {
             dir ('model') {
-              echo "${GIT_file_change}"
+              GIT_file_change = sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
           }
         }
         }
 
         stage ('do s3 sync') {
           when {
-            expression{env.GIT_file_change == 'model/preprocessing/preprocessing.py'}
+            expression{ GIT_file_change == 'model/preprocessing/preprocessing.py'}
           }
           steps {
                 sh "echo sync done"
