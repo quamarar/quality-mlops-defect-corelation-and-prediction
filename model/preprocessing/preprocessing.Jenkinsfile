@@ -27,7 +27,7 @@ pipeline {
           steps {
             script{
               if(env.GIT_file_change == 'model/preprocessing/preprocessing.py') {
-                echo 'sync done'
+                sh " echo sync done"
               }
               else {
                 sh "echo no change"
