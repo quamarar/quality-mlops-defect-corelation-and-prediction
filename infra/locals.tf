@@ -76,7 +76,7 @@ locals {
       "Parameters": {
         "ProcessingJobName.$": "$$.Execution.Name",
         "AppSpecification": {
-          "ImageUri": "${module.ecr.repository_url}:latest",
+          "ImageUri": "${module.ecr_preprocessing.repository_url}:latest",
           "ContainerArguments.$": "States.StringSplit(States.Format('--train_metatable_name,{},--region,{}',$.Arguments['--train_metatable_name'],$.Arguments['--region']),',')"
         },
         "ProcessingResources": {
