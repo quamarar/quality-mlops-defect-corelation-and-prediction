@@ -37,7 +37,7 @@ pipeline {
          stage ('push commitid to pm') {
           steps {
             dir ('model/preprocessing') {
-            withAWS(roleAccount:'731580992380', role:'Cross-Account-role')
+            withAWS(roleAccount:'731580992380', role:'Cross-Account-role', region:'ap-south-1')
             {
             sh 'aws ssm put-parameter --name "/mvp/development/training-job/ecr_preprocessing" --type "String"  --value "${GIT_COMMIT_HASH}" --overwrite'
             sh 'aws ssm get-parameters --names "/mvp/development/training-job/ecr_preprocessing"'
