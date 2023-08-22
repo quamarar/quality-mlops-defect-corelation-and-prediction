@@ -27,7 +27,7 @@ pipeline {
           steps {
             script{
               def file_change = sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
-              if(file_change == "model/preprocessing/preprocessing.py") {
+              if(file_change == 'model/preprocessing/preprocessing.py') {
                 sh "echo sync done"
               }
               else {
