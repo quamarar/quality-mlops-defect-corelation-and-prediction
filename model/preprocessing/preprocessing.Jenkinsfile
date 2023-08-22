@@ -1,12 +1,11 @@
 
-
 pipeline {
   agent any
 
 
   environment {
     GIT_COMMIT_HASH = sh (script: "git rev-parse --short HEAD", returnStdout: true)  
-    GIT_file_change =  sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
+    GIT_file_change = sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
   }
   
  stages {
@@ -20,7 +19,7 @@ pipeline {
         stage('detect file change in folder model') {
           steps {
             dir ('model') {
-              GIT_file_change = sh (script: "git diff --name-only HEAD^ HEAD", returnStdout: true)
+              echo "${GIT_file_change}"
           }
         }
         }
