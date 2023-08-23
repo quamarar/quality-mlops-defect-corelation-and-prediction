@@ -41,6 +41,9 @@ pipeline {
         }
         
         stage('build docker image') {
+          when {
+              changeset "model/**"
+            }
             steps {
                 dir ('model/preprocessing') {
                      sh 'sudo docker build -f Dockerfile . -t msil-preprocessing:${GIT_COMMIT_HASH}'
