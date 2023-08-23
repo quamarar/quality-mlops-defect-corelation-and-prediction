@@ -38,7 +38,7 @@ pipeline {
                      sh 'docker tag msil-preprocessing:${GIT_COMMIT_HASH} 731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-preprocessing:${GIT_COMMIT_HASH} '  
                      sh 'aws ecr get-login-password --region ap-south-1 |docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
                      sh 'docker push 731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-preprocessing:${GIT_COMMIT_HASH}'
-                     sh 'aws ssm put-parameter --name "/mvp/development/training-job/ecr_preprocessing" --type "String"  --value "${GIT_COMMIT_HASH}" --overwrite'
+                     sh 'aws ssm put-parameter --name "/mvp/development/training-job/ecr_preprocessing" --type "String"  --value "731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-preprocessing:${GIT_COMMIT_HASH}" --overwrite'
                 }
             }
         }
@@ -57,7 +57,7 @@ pipeline {
                      sh 'docker tag msil-training:${GIT_COMMIT_HASH} 731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-training:${GIT_COMMIT_HASH} '  
                      sh 'aws ecr get-login-password --region ap-south-1 |docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
                      sh 'docker push 731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-training:${GIT_COMMIT_HASH}'
-                     sh 'aws ssm put-parameter --name "/mvp/development/training-job/ecr_training" --type "String"  --value "${GIT_COMMIT_HASH}" --overwrite'
+                     sh 'aws ssm put-parameter --name "/mvp/development/training-job/ecr_training" --type "String"  --value "731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-training:${GIT_COMMIT_HASH}" --overwrite'
                 }
             }
         }
