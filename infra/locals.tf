@@ -70,13 +70,22 @@ locals {
         }
       ]
     },
+      "get ecr repo url": {
+      "Type": "Task",
+      "Next": "SageMaker CreateProcessingJob-Sync",
+      "Parameters": {
+        "Name": "/mvp/development/training-job/ecr_preprocessing"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:ssm:getParameter",
+      "ResultPath": "$.Preprocessing_url"
+    },
     "SageMaker CreateProcessingJob-Sync": {
       "Type": "Task",
       "Resource": "arn:aws:states:::sagemaker:createProcessingJob.sync",
       "Parameters": {
         "ProcessingJobName.$": "$$.Execution.Name",
         "AppSpecification": {
-          "ImageUri": "${module.ecr_preprocessing.repository_url}:latest",
+          "ImageUri.$": "$.Preprocessing_url.Parameter.Value",
           "ContainerArguments.$": "States.StringSplit(States.Format('--train_metatable_name,{},--region,{}',$.Arguments['--train_metatable_name'],$.Arguments['--region']),',')"
         },
         "ProcessingResources": {
