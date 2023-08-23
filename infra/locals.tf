@@ -71,7 +71,7 @@ locals {
       ]
     },
     "get ecr repo url": {
-    "Type": "Task",
+      "Type": "Task",
       "Next": "SageMaker CreateProcessingJob-Sync",
       "Parameters": {
         "Name": "/mvp/development/training-job/ecr_preprocessing"
