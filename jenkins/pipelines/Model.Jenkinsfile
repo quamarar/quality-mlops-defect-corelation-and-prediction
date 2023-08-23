@@ -33,6 +33,7 @@ pipeline {
                 dir ('model/preprocessing') {
                   withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                   {
+                     sh 'aws s3 sync . s3://msil-mvp-poc-apsouth1-internal/src/master/model/preprocessing/'
                      sh 'docker build -f Dockerfile . -t msil-preprocessing:${GIT_COMMIT_HASH}'
                      sh 'docker tag msil-preprocessing:${GIT_COMMIT_HASH} 731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-preprocessing:${GIT_COMMIT_HASH} '  
                      sh 'aws ecr get-login-password --region ap-south-1 |docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
