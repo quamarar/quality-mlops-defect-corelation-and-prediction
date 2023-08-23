@@ -52,6 +52,7 @@ pipeline {
                 dir ('model/training') {
                   withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                   {
+                     sh 'aws s3 sync . s3://msil-mvp-poc-apsouth1-internal/src/master/model/training/'
                      sh 'docker build -f Dockerfile . -t msil-training:${GIT_COMMIT_HASH}'
                      sh 'docker tag msil-training:${GIT_COMMIT_HASH} 731580992380.dkr.ecr.ap-south-1.amazonaws.com/msil-mvp-poc-apsouth1-training:${GIT_COMMIT_HASH} '  
                      sh 'aws ecr get-login-password --region ap-south-1 |docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
