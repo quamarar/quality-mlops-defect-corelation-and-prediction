@@ -48,7 +48,7 @@ locals {
           "--ssm_training_complete_status.$": "$.ssm_training_complete_status"
         }
       },
-      "Next": "SageMaker CreateProcessingJob-Sync",
+      "Next": "get ecr repo url",
       "Catch": [
         {
           "ErrorEquals": [
