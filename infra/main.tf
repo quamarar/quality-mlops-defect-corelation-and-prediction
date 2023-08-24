@@ -385,7 +385,7 @@ module "ecr_registry_training" {
 ===============================*/
 
 module "traininput-dynamodb-table" {
-  source  = "../Modules/terraform-aws-dynamodb-table"
+  source  = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-dynamodb-table?ref=master"
 
   name = "${local.name_prefix}-${var.traininput-dynamodb-table-config.name}"
   hash_key = var.traininput-dynamodb-table-config.hash_key
@@ -400,7 +400,7 @@ module "traininput-dynamodb-table" {
    }
 
 module "trainstate-dynamodb-table" {
-    source  = "../Modules/terraform-aws-dynamodb-table"
+    source  = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-dynamodb-table?ref=master"
 
   name = "${local.name_prefix}-${var.trainstate-dynamodb-table-config.name}"
   hash_key = var.trainstate-dynamodb-table-config.hash_key
@@ -416,7 +416,7 @@ module "trainstate-dynamodb-table" {
    }  
 
 module "trainmetatable-dynamodb-table" {
-    source  = "../Modules/terraform-aws-dynamodb-table"
+    source  = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-dynamodb-table?ref=master"
 
   name = "${local.name_prefix}-${var.trainmeta-dynamodb-table-config.name}"
   hash_key = var.trainmeta-dynamodb-table-config.hash_key
