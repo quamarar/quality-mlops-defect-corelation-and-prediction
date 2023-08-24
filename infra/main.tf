@@ -112,7 +112,7 @@ module "glue-job-gatekeeper" {
 
   command = {
     name            = "pythonshell"
-    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-gatekeeper-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    script_location = format("s3://%s/glue_jobs_for_training/src/master/model/gatekeeper/${var.glue-job-gatekeeper-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
     python_version  = 3.9
   }
 
@@ -120,7 +120,7 @@ module "glue-job-gatekeeper" {
     "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
     "--enable-glue-datacatalog"   = "true"
     "--enable-job-insights"       = "false"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
     "--train_inputtable_name"     = "traininputtable"
@@ -141,7 +141,7 @@ module "glue-job-submit_training_job_awsbatch_statetable" {
 
   command = {
     name            = "pythonshell"
-    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-submit_training_job_awsbatch_statetable-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    script_location = format("s3://%s/${var.glue-job-submit_training_job_awsbatch_statetable-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
     python_version  = 3.9
   }
 
@@ -149,7 +149,7 @@ module "glue-job-submit_training_job_awsbatch_statetable" {
     "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
     "--enable-glue-datacatalog"   = "true"
     "--enable-job-insights"       = "false"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
     "--train_inputtable_name"     = "traininputtable"
@@ -170,7 +170,7 @@ module "glue-job-training_job_awsbatch_status_check" {
 
   command = {
     name            = "pythonshell"
-    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-training_job_awsbatch_status_check-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    script_location = format("s3://%s/${var.glue-job-training_job_awsbatch_status_check-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
     python_version  = 3.9
   }
 
@@ -178,7 +178,7 @@ module "glue-job-training_job_awsbatch_status_check" {
     "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
     "--enable-glue-datacatalog"   = "true"
     "--enable-job-insights"       = "false"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
     "--train_inputtable_name"     = "traininputtable"
@@ -201,7 +201,7 @@ module "glue-job-evaluation_summary" {
 
   command = {
     name            = "glueetl"
-    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-evaluation_summary-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    script_location = format("s3://%s/src/master/model/evaluation/${var.glue-job-evaluation_summary-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
     python_version  = 3
   }
 
@@ -211,7 +211,7 @@ module "glue-job-evaluation_summary" {
     "--enable-job-insights"       = "false"
     "--enable-metrics"            = "true"
     "--enable-spark-ui"           = "true"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
     "--train_inputtable_name"     = "traininputtable"
@@ -234,7 +234,7 @@ module "glue-job-clean_up_job" {
 
   command = {
     name            = "pythonshell"
-    script_location = format("s3://%s/glue_jobs_for_training/${var.glue-job-clean_up_job-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    script_location = format("s3://%s/${var.glue-job-clean_up_job-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
     python_version  = 3.9
   }
 
@@ -242,7 +242,7 @@ module "glue-job-clean_up_job" {
     "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
     "--enable-glue-datacatalog"   = "true"
     "--enable-job-insights"       = "false"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/glue_jobs_for_training/utils/constants.py"
+    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
     "--train_inputtable_name"     = "traininputtable"
