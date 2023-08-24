@@ -45,13 +45,7 @@ locals {
           "--aws_batch_job_queue.$": "$.aws_batch_job_queue",
           "--aws_batch_job_name.$": "$.aws_batch_job_name",
           "--athenadb_metadata_table_name.$": "$.athenadb_metadata_table_name",
-          "--ssm_training_complete_status.$": "$.ssm_training_complete_status",
-          "--dq_athena_db.$": "$.dq_athena_db",
-          "--dq_table.$": "$.dq_table",
-          "--email_topic_arn.$": "$.email_topic_arn",
-          "--model_package_group_arn.$": "$.model_package_group_arn",
-          "--training_event_bus_name.$": "$.training_event_bus_name",
-          "--repository.$": "$.repository"  
+          "--ssm_training_complete_status.$": "$.ssm_training_complete_status"
         }
       },
       "Next": "get ecr repo url",
