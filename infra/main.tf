@@ -123,7 +123,7 @@ module "glue-job-gatekeeper" {
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable""
+    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
     "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
     "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
   }
@@ -181,7 +181,7 @@ module "glue-job-training_job_awsbatch_status_check" {
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable""
+    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
     "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
     "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
   }
@@ -214,7 +214,7 @@ module "glue-job-evaluation_summary" {
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable""
+    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
     "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
     "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
     "--job-bookmark-option"       = "job-bookmark-disable"
@@ -245,7 +245,7 @@ module "glue-job-clean_up_job" {
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable""
+    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
     "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
     "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
   }
