@@ -95,3 +95,19 @@ variable "training_ecr-registry-config" {
 variable "step_function_name" {
   type = string
 }
+
+/*===============================
+#    DynamoDb Table
+===============================*/
+
+variable "traininput-dynamodb-table-config" {
+   type = map(any)
+}
+
+variable "trainstate-dynamodb-table-config" {
+   type = map(any)
+}
+
+variable "trainmeta-dynamodb-table-config" {
+   type = map(any)
+}

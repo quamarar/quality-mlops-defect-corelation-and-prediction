@@ -380,7 +380,56 @@ module "ecr_registry_training" {
       #}
   #]
 }
+/*===============================
+#    DynamoDb Table
+===============================*/
 
+module "traininput-dynamodb-table" {
+  source  = "../Modules/terraform-aws-dynamodb-table"
+
+  name = "${local.name_prefix}-${var.traininput-dynamodb-table-config.name}"
+  hash_key = var.traininput-dynamodb-table-config.hash_key
+  table_class = var.traininput-dynamodb-table-config.table_class
+  deletion_protection_enabled = var.traininput-dynamodb-table-config.deletion_protection_enabled
+  attributes = [
+         {
+          "name" : "sku_mappingid"
+          "type" : "S"
+         }
+        ]
+   }
+
+module "trainstate-dynamodb-table" {
+    source  = "../Modules/terraform-aws-dynamodb-table"
+
+  name = "${local.name_prefix}-${var.trainstate-dynamodb-table-config.name}"
+  hash_key = var.trainstate-dynamodb-table-config.hash_key
+  table_class = var.trainstate-dynamodb-table-config.table_class
+  deletion_protection_enabled = var.trainstate-dynamodb-table-config.deletion_protection_enabled
+  attributes = [
+         {
+          "name" : "batchjob_id"
+          "type" : "S"
+         },
+
+        ]
+   }  
+
+module "trainmetatable-dynamodb-table" {
+    source  = "../Modules/terraform-aws-dynamodb-table"
+
+  name = "${local.name_prefix}-${var.trainmeta-dynamodb-table-config.name}"
+  hash_key = var.trainmeta-dynamodb-table-config.hash_key
+  table_class = var.trainmeta-dynamodb-table-config.table_class
+  deletion_protection_enabled = var.trainmeta-dynamodb-table-config.deletion_protection_enabled
+  attributes = [
+         {
+          "name" : "metaKey"
+          "type" : "S"
+         },
+
+        ]
+   }
 
 /*===============================
 #           Step Function

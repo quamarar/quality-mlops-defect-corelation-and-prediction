@@ -94,3 +94,22 @@ output "repository_url_training" {
   description = "The URL of the repository (in the form `aws_account_id.dkr.ecr.region.amazonaws.com/repositoryName`)"
   value       = module.ecr_registry_training.repository_url
 }
+
+/*===============================
+#    DynamoDb Table
+===============================*/
+
+output "traininput-dynamodb-table_arn" {
+  description = "ARN of the DynamoDB table"
+  value       = module.traininput-dynamodb-table.dynamodb_table_arn
+}
+
+output "trainstate-dynamodb-table_arn" {
+  description = "ARN of the DynamoDB table"
+  value       = module.trainstate-dynamodb-table.dynamodb_table_arn
+}
+
+output "trainmeta-dynamodb-table_arn" {
+  description = "ARN of the DynamoDB table"
+  value       = module.trainmeta-dynamodb-table.dynamodb_table_arn
+}
