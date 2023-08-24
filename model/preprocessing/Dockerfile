@@ -14,7 +14,7 @@ ENV AWS_BATCH_JOB_ID=default
 
 COPY utils /opt/ml/utils
 #COPY ${CONTEXT_NAME}/${CONTEXT_NAME}.py /opt/ml/${CONTEXT_NAME}.py
-COPY preprocessing.py /opt/ml/processing.py
+COPY preprocessing.py /opt/ml/preprocessing.py
 
 RUN ls -ltr /opt/ml/
 RUN ls -ltr /opt/ml/utils
