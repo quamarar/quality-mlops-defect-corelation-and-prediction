@@ -24,7 +24,7 @@ module "internal-s3-bucket" {
 
 
 module "shared-s3-bucket" {
-  source = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-s3-bucket?ref=master"
+  source = "git::https://github.com/quamarar/terraform-common-module.git//s3-bucket?ref=master"
 
   bucket                                = "${local.name_prefix}-${var.shared-s3-config.name}"
   force_destroy                         = true
