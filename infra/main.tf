@@ -152,7 +152,7 @@ module "glue-job-submit_training_job_awsbatch_statetable" {
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
     "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable""
+    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
     "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
     "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
   }
