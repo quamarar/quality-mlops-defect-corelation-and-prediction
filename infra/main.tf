@@ -113,7 +113,7 @@ module "glue-job-gatekeeper" {
 
   command = {
     name            = "pythonshell"
-    script_location = format("s3://%s/glue_jobs_for_training/src/master/model/gatekeeper/${var.glue-job-gatekeeper-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
+    script_location = format("s3://%s/src/master/model/gatekeeper/${var.glue-job-gatekeeper-config.file_name}", module.internal-s3-bucket.s3_bucket_id)
     python_version  = 3.9
   }
 
