@@ -105,7 +105,7 @@ pipeline {
                 dir('infra') {
                 withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
               {
-                sh 'terraform plan -no-color -destroy -out=tfplan  --var-file=./environments/dev.tfvars.json''
+                sh 'terraform plan -no-color -destroy -out=tfplan  --var-file=./environments/dev.tfvars.json'
                 sh 'terraform show -no-color tfplan > tfplan.txt'
             }
           }
@@ -125,7 +125,7 @@ pipeline {
                     input message: "Delete the stack?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                 }
-                sh 'terraform destroy -no-color -auto-approve  --var-file=./environments/dev.tfvars.json''
+                sh 'terraform destroy -no-color -auto-approve  --var-file=./environments/dev.tfvars.json'
             }
          }
         }
