@@ -18,7 +18,7 @@ from model.utils.dynamodb_util import TrainInputDataModel, TrainingMetaDataModel
 # from sklearn.preprocessing import MinMaxScaler
 # from model.utils.ddb_helper_functions import  upload_file, read_json_from_s3
 # from model.utils.dynamodb_util import TrainInputDataModel, TrainingMetaDataModel, Timelaps
-################################
+#################################
 
 def args_parse():
     """
