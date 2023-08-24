@@ -26,7 +26,7 @@ module "internal-s3-bucket" {
 module "shared-s3-bucket" {
   source = "git::https://github.com/quamarar/terraform-common-module.git//s3-bucket?ref=master"
 
-  bucket                                = "${local.name_prefix}-${var.shared-s3-config.name}"
+  bucket_name                              = "${local.name_prefix}-${var.shared-s3-config.name}"
   expected_bucket_owner                 = data.aws_caller_identity.current.account_id
 }
 
