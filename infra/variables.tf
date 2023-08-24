@@ -111,3 +111,19 @@ variable "trainstate-dynamodb-table-config" {
 variable "trainmeta-dynamodb-table-config" {
    type = map(any)
 }
+
+/*===============================
+#    AWS Batch
+===============================*/
+
+variable "training-batch-config" {
+   type = map(any)
+}
+
+variable "trainstate-dynamodb-table-config" {
+   type = map(any)
+}
+
+variable "trainmeta-dynamodb-table-config" {
+   type = map(any)
+}
