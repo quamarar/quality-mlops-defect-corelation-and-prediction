@@ -19,6 +19,7 @@ pipeline {
           steps {
             dir ('model') {
               echo "${GIT_file_change}"
+              echo "${GIT_COMMIT_HASH}"
           }
         }
         }
