@@ -33,7 +33,6 @@ module "shared-s3-bucket" {
   attach_deny_insecure_transport_policy = var.shared-s3-config.attach_deny_insecure_transport_policy
   attach_require_latest_tls_policy      = var.shared-s3-config.attach_require_latest_tls_policy
   control_object_ownership              = var.shared-s3-config.control_object_ownership
-  object_ownership                      = var.shared-s3-config.object_ownership 
   expected_bucket_owner                 = data.aws_caller_identity.current.account_id
   acl                                   = var.shared-s3-config.acl  
   versioning  = {
