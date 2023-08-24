@@ -3,8 +3,8 @@ pipeline {
 
 
   environment {
-    GIT_COMMIT_HASH = sh(script:"git rev-parse --short HEAD", returnStdout: true)
-    GIT_file_change =  sh(script:"git diff --name-only HEAD^ HEAD", returnStdout: true)
+    GIT_COMMIT_HASH = sh(script:"git rev-parse --short HEAD",returnStdout: true)
+    GIT_file_change =  sh(script:"git diff --name-only HEAD^ HEAD",returnStdout: true)
   }
   
  stages {
