@@ -415,7 +415,7 @@ module "trainstate-dynamodb-table" {
         ]
    }  
 
-module "trainmetatable-dynamodb-table" {
+module "trainmeta-dynamodb-table" {
     source  = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-dynamodb-table?ref=master"
 
   name = "${local.name_prefix}-${var.trainmeta-dynamodb-table-config.name}"
