@@ -135,7 +135,7 @@ module "glue-job-gatekeeper" {
     default_arguments = {
     "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
     "--athenadb_name" = "default"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
+    "--extra-files"               = "s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/constants.py"
     "--region"                    = "ap-south-1"
     "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
     "--train_metatable_name"      = "dcp-auto-dev-apsouth1-TrainMetaTable"
@@ -163,7 +163,7 @@ module "glue-job-submit_training_job_awsbatch_statetable" {
 
     default_arguments = {
     "--additional-python-modules" = "pythena,ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
+    "--extra-files"               = "s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/constants.py"
     "--region"                    = "${local.region-short}"
     "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
     "--train_metatable_name"      = "dcp-auto-dev-apsouth1-TrainMetaTable"
@@ -189,7 +189,7 @@ module "glue-job-training_job_awsbatch_status_check" {
 
     default_arguments = {
     "--additional-python-modules" = "pythena,ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
+    "--extra-files"               = "s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/constants.py"
     "--ssm_training_complete_status" = "training_complete_status"
     "--region"                    = "ap-south-1"
      "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
@@ -219,7 +219,7 @@ module "glue-job-evaluation_summary" {
 
     default_arguments = {
     "--additional-python-modules" = "pythena==1.6.0,pynamodb==5.5.0,boto3==1.28.27,ndjson~=0.3.1"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
+    "--extra-files"               = "s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/constants.py"
     "--region"                    = "ap-south-1"
     "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
     "--train_metatable_name"      = "dcp-auto-dev-apsouth1-TrainMetaTable"
@@ -246,7 +246,7 @@ module "glue-job-clean_up_job" {
 
     default_arguments = {
     "--additional-python-modules" = "pythena,ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3"
-    "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
+    "--extra-files"               = "s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/constants.py"
     "--ssm_training_complete_status"              = "training_complete_status"
     "--region"                    = "ap-south-1"
     "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
