@@ -164,7 +164,7 @@ module "glue-job-submit_training_job_awsbatch_statetable" {
     default_arguments = {
     "--additional-python-modules" = "pythena,ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3"
     "--extra-files"               = "s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://dcp-auto-dev-apsouth1-internal/src/master/model/utils/constants.py"
-    "--region"                    = "${local.region-short}"
+    "--region"                    = "ap-south-1"
     "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
     "--train_metatable_name"      = "dcp-auto-dev-apsouth1-TrainMetaTable"
     "--train_statetable_name"     = "dcp-auto-dev-apsouth1-TrainStateTable"
