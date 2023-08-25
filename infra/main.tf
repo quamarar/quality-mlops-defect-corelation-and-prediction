@@ -64,7 +64,7 @@ module "ssm-parameters-training-ecr-preprocessing" {
   description             = var.ssm-parameter-training-ecr-preprocessing.description
   type                    = var.ssm-parameter-training-ecr-preprocessing.type
   overwrite               = var.ssm-parameter-training-ecr-preprocessing.overwrite
-  value                   = module.ecr_registry_training.repository_url
+  value                   = var.ssm-parameter-training-ecr-preprocessing.value
 }
 
 
@@ -77,7 +77,7 @@ module "ssm-parameter-training-ecr-training" {
   description             = var.ssm-parameter-training-ecr-training.description
   type                    = var.ssm-parameter-training-ecr-training.type
   overwrite               = var.ssm-parameter-training-ecr-training.overwrite
-  value                   = module.ecr_registry_processing.repository_url
+  value                   = var.ssm-parameter-training-ecr-training.value
 }
 
 module "ssm-parameters-glue-job" {
