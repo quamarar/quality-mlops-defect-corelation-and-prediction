@@ -31,7 +31,7 @@ pipeline {
               changeset "model/preprocessing/*"
             }
             steps {
-                dir ('model/preprocessing') {
+                dir ('model') {
                   withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                   {
                      sh 'docker build -f Dockerfile . -t msil-preprocessing:${GIT_COMMIT_HASH}'
@@ -49,7 +49,7 @@ pipeline {
               changeset "model/training/*"
             }
             steps {
-                dir ('model/training') {
+                dir ('model') {
                   withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                   {
 
