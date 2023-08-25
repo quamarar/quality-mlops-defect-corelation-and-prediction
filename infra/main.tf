@@ -37,12 +37,6 @@ module "shared-s3-bucket" {
 
 
 
-#module "s3-object" {
- #source = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-s3-bucket?modules/objectref=master"
-
-
-#}
-
 
 
 /*===============================
@@ -140,14 +134,14 @@ module "glue-job-gatekeeper" {
 
     default_arguments = {
     "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
-    "--enable-glue-datacatalog"   = "true"
-    "--enable-job-insights"       = "false"
+    "--athenadb_name" = "default"
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
-    "--job-language"              = "python"
     "--region"                    = "ap-south-1"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
-    "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
-    "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
+    "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
+    "--train_metatable_name"      = "dcp-auto-dev-apsouth1-TrainMetaTable"
+    "--train_statetable_name"     = "dcp-auto-dev-apsouth1-TrainStateTable"
+    "--model_package_group_arn" = "demo-997"
+    
   }
 }
 
@@ -168,15 +162,12 @@ module "glue-job-submit_training_job_awsbatch_statetable" {
   }
 
     default_arguments = {
-    "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
-    "--enable-glue-datacatalog"   = "true"
-    "--enable-job-insights"       = "false"
+    "--additional-python-modules" = "pythena,ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3"
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
-    "--job-language"              = "python"
     "--region"                    = "${local.region-short}"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
-    "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
-    "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
+    "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
+    "--train_metatable_name"      = "dcp-auto-dev-apsouth1-TrainMetaTable"
+    "--train_statetable_name"     = "dcp-auto-dev-apsouth1-TrainStateTable"
   }
 }
 
@@ -197,15 +188,14 @@ module "glue-job-training_job_awsbatch_status_check" {
   }
 
     default_arguments = {
-    "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
-    "--enable-glue-datacatalog"   = "true"
-    "--enable-job-insights"       = "false"
+    "--additional-python-modules" = "pythena,ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3"
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
-    "--job-language"              = "python"
+    "--ssm_training_complete_status" = "training_complete_status"
     "--region"                    = "ap-south-1"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
-    "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
-    "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
+     "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
+    "--train_metatable_name"      = "dcp-auto-dev-apsouth1-TrainMetaTable"
+    "--train_statetable_name"     = "dcp-auto-dev-apsouth1-TrainStateTable"
+    "--athenadb_name" =  "default"
   }
 }
 
@@ -229,17 +219,11 @@ module "glue-job-evaluation_summary" {
 
     default_arguments = {
     "--additional-python-modules" = "pythena==1.6.0,pynamodb==5.5.0,boto3==1.28.27,ndjson~=0.3.1"
-    "--enable-glue-datacatalog"   = "true"
-    "--enable-job-insights"       = "false"
-    "--enable-metrics"            = "true"
-    "--enable-spark-ui"           = "true"
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
-    "--job-language"              = "python"
     "--region"                    = "ap-south-1"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
-    "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
-    "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
-    "--job-bookmark-option"       = "job-bookmark-disable"
+    "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
+    "--train_metatable_name"      = "dcp-auto-dev-apsouth1-TrainMetaTable"
+    "--train_statetable_name"     = "dcp-auto-dev-apsouth1-TrainStateTable"
   }
 }
 
@@ -261,15 +245,13 @@ module "glue-job-clean_up_job" {
   }
 
     default_arguments = {
-    "--additional-python-modules" = "ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3,pythena==1.6.0"
-    "--enable-glue-datacatalog"   = "true"
-    "--enable-job-insights"       = "false"
+    "--additional-python-modules" = "pythena,ndjson==0.3.1,pynamodb==5.5.0,scikit-learn==1.3.0,pandas==1.5.3"
     "--extra-files"               = "s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/ddb_helper_functions.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/dynamodb_util.py,s3://msil-mvp-poc-apsouth1-internal/src/master/model/utils/constants.py"
-    "--job-language"              = "python"
+    "--ssm_training_complete_status"              = "training_complete_status"
     "--region"                    = "ap-south-1"
-    "--train_inputtable_name"     = "msil-mvp-poc-apsouth1-TrainInputTable"
-    "--train_metatable_name"      = "msil-mvp-poc-apsouth1-TrainMetaTable"
-    "--train_statetable_name"     = "msil-mvp-poc-apsouth1-TrainStateTable"
+    "--train_inputtable_name"     = "dcp-auto-dev-apsouth1-TrainInputTable"
+    "--train_metatable_name"      = "dcp-auto-dev-apsouth1-TrainMetaTable"
+    "--train_statetable_name"     = "dcp-auto-dev-apsouth1-TrainStateTable"
   }
 }
 /*===============================
