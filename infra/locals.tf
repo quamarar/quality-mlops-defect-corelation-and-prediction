@@ -101,7 +101,7 @@ locals {
             "VolumeSizeInGB": 10
           }
         },
-        "RoleArn": "arn:aws:iam::542557088077:role/SagemakerProcessingJobAPIExecutionRole"
+        "RoleArn": "arn:aws:iam::731580992380:role/SagemakerProcessingJobAPIExecutionRole"
       },
       "Next": "Glue pyhton (Training submit AWS Batch)",
       "Catch": [
