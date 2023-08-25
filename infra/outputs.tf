@@ -102,10 +102,10 @@ output "repository_url_training" {
 #    DynamoDb Table
 ===============================*/
 
-output "traininput-dynamodb-table_arn" {
-  description = "ARN of the DynamoDB table"
-  value       = module.traininput-dynamodb-table.dynamodb_table_arn
-}
+#output "traininput-dynamodb-table_arn" {
+  #description = "ARN of the DynamoDB table"
+  #value       = module.traininput-dynamodb-table.dynamodb_table_arn
+#}
 
 output "trainstate-dynamodb-table_arn" {
   description = "ARN of the DynamoDB table"

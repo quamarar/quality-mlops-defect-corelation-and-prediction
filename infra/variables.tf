@@ -104,9 +104,9 @@ variable "step_function_name" {
 #    DynamoDb Table
 ===============================*/
 
-variable "traininput-dynamodb-table-config" {
-   type = map(any)
-}
+#variable "traininput-dynamodb-table-config" {
+   #type = map(any)
+#}
 
 variable "trainstate-dynamodb-table-config" {
    type = map(any)
