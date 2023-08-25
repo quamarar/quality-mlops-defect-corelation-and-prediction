@@ -26,7 +26,11 @@ variable "internal-s3-config" {
   default     = null
 }
 
-
+variable "shared-s3-config" {
+  type        = any
+  description = "S3 bucket configurations"
+  default     = null
+}
 /*===============================
 #   SSM Parameters Variables
 ===============================*/

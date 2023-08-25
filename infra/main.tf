@@ -16,11 +16,40 @@ module "kms_default" {
 ===============================*/
 
 module "internal-s3-bucket" {
-  source = "git::https://github.com/quamarar/terraform-common-module.git//s3-bucket?ref=master"
+  source = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-s3-bucket/?ref=master"
 
   bucket_name                                = "${local.name_prefix}-${var.internal-s3-config.name}"
- expected_bucket_owner                 =   data.aws_caller_identity.current.account_id
+  expected_bucket_owner                 =   data.aws_caller_identity.current.account_id
+  attach_policy = true
+  force_destroy                         = true
+  policy                                = null
+  attach_deny_insecure_transport_policy = true
+  attach_require_latest_tls_policy      = true
+  control_object_ownership              = true
+  expected_bucket_owner =  data.aws_caller_identity.current.account_id
 }
+
+module "shared-s3-bucket" {
+  source = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-s3-bucket/?ref=master"
+
+  bucket                                = "${local.name_prefix}-${var.shared-s3-config.name}"
+  expected_bucket_owner                 =   data.aws_caller_identity.current.account_id
+  attach_policy = true
+  force_destroy                         = true
+  policy                                = null
+  attach_deny_insecure_transport_policy = true
+  attach_require_latest_tls_policy      = true
+  control_object_ownership              = true
+  expected_bucket_owner =  data.aws_caller_identity.current.account_id
+}
+
+
+
+#module "s3-object" {
+ #source = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-s3-bucket?modules/objectref=master"
+
+
+#}
 
 
 
