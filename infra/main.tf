@@ -18,7 +18,7 @@ module "kms_default" {
 module "internal-s3-bucket" {
   source = "git::https://github.com/quamarar/terraform-common-module.git//terraform-aws-s3-bucket/?ref=master"
 
-  bucket_name                                = "${local.name_prefix}-${var.internal-s3-config.name}"
+  bucket                               = "${local.name_prefix}-${var.internal-s3-config.name}"
   expected_bucket_owner                 =   data.aws_caller_identity.current.account_id
   attach_policy = true
   force_destroy                         = true
