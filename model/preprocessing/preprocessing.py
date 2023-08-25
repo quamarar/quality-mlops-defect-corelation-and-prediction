@@ -5,11 +5,11 @@ import time
 import boto3
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-from model.utils.ddb_helper_functions import upload_file,read_json_from_s3
-from model.utils.dynamodb_util import TrainInputDataModel, TrainingMetaDataModel, Timelaps
+from utils.ddb_helper_functions import upload_file,read_json_from_s3
+from utils.dynamodb_util import TrainInputDataModel, TrainingMetaDataModel, Timelaps
 
-#
-######################################
+
+#################
 # import argparse
 # import logging
 # import time
@@ -18,7 +18,7 @@ from model.utils.dynamodb_util import TrainInputDataModel, TrainingMetaDataModel
 # from sklearn.preprocessing import MinMaxScaler
 # from model.utils.ddb_helper_functions import  upload_file, read_json_from_s3
 # from model.utils.dynamodb_util import TrainInputDataModel, TrainingMetaDataModel, Timelaps
-#####################################
+##################
 
 def args_parse():
     """
@@ -173,6 +173,8 @@ if __name__ == "__main__":
     mapping_json_constants = read_json_from_s3(meta_item.mapping_json_s3_path, s3_client)
     primaryKey = mapping_json_constants["mapping_json_data"]["primary_key"]
     mapping_id = mapping_json_constants["mapping_json_data"]['Training']["mappingColumn"]
+    all_algo_names = mapping_json_constants["mapping_json_data"]["Training"]["all_algorithms"]
+
 
     ml_dataset["pk"] = ml_dataset[primaryKey]
     if mapping_id == "default":
@@ -198,10 +200,11 @@ if __name__ == "__main__":
         meta_item.step_job_id,
         meta_item.step_job_id)
 
+
     total_num_training_jobs = 0
     for index, row in filtered_data.iterrows():
         total_num_training_jobs = total_num_training_jobs + 1
-        algo_names = mapping_json_constants["mapping_json_data"]["TrainingMapping"][row.region]
+
 
         # "smid is same as step function id"
 
@@ -216,7 +219,7 @@ if __name__ == "__main__":
                        row.part_name,
                        row.region)
 
-        preprocess_output_bucket_name = "s3://{}".format(meta_item.s3_bucket_name_shared)
+        #preprocess_output_bucket_name = "s3://{}".format(meta_item.s3_bucket_name_shared)
         aws_batch_job_definition = meta_item.aws_batch_job_definition
 
         status_input_job = insert_train_job_def_input_table(pk_mappingid=row.pk + "|" + row.mapping,
@@ -229,9 +232,9 @@ if __name__ == "__main__":
                                                             mapping_id=row.mapping,
                                                             mapping_json_s3_path=meta_item.mapping_json_s3_path,
                                                             algo_execution_status=[],
-                                                            algo_names=list(algo_names),
+                                                            algo_names=all_algo_names,
                                                             s3_pk_mappingid_data_input_path=s3_pk_mappingid_data_input_path,
-                                                            s3_output_bucket_name=preprocess_output_bucket_name,
+                                                            s3_output_bucket_name=meta_item.s3_bucket_name_shared,
                                                             batch_job_definition=aws_batch_job_definition,
                                                             batch_job_status_overall="TO_BE_CREATED",
                                                             input_data_set=[analytical_data_path]
@@ -246,7 +249,7 @@ if __name__ == "__main__":
                                                 end_time=pre_processing_end_epoch)
     meta_item.input_data_set = [analytical_data_path]
     # TODO for NIKHIL - This needs to be fixed
-    meta_item.algo_names=list(algo_names)
+    meta_item.algo_names=all_algo_names
     meta_item.preprocessing_total_batch_jobs = total_num_training_jobs
     meta_item.s3_preprocessing_prefix_output_path = s3_preprocessing_prefix_output_path
     meta_item.save()
