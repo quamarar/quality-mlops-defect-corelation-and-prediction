@@ -39,6 +39,7 @@ pipeline {
                      sh 'aws ecr get-login-password --region ap-south-1 |docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
                      sh 'docker push 731580992380.dkr.ecr.ap-south-1.amazonaws.com/dcp-auto-dev-apsouth1-preprocessing:${GIT_COMMIT_HASH}'
                      sh 'aws ssm put-parameter --name "/mvp/development/training-job/ecr_preprocessing" --type "String" --value "731580992380.dkr.ecr.ap-south-1.amazonaws.com/dcp-auto-dev-apsouth1-preprocessing:${GIT_COMMIT_HASH}" --region "ap-south-1" --overwrite'
+                     sh 'docker run -v ~/.aws:/root/.aws 731580992380.dkr.ecr.ap-south-1.amazonaws.com/dcp-auto-dev-apsouth1-preprocessing:${GIT_COMMIT_HASH}   --train_metatable_name  dcp-auto-dev-apsouth1-TrainMetaTable  --region ap-south-1'
                 }
             }
         }
