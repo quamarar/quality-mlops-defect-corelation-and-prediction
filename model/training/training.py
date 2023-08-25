@@ -20,7 +20,7 @@ logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
 
 # os.environ["AWS_BATCH_JOB_ID"] = "20d3a773-3d6f-42e1-b201-7312b716fcbb"
 # os.environ["AWS_BATCH_JOB_ATTEMPT"] = "0"
-######
+#######
 
 AWS_BATCH_JOB_ID = os.environ['AWS_BATCH_JOB_ID']
 # AWS_BATCH_JOB_ID = 111222

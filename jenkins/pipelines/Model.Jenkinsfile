@@ -53,7 +53,7 @@ pipeline {
                   withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                   {
 
-                     sh 'docker build -f Dockerfile . -t msil-training:${GIT_COMMIT_HASH}'
+                     sh 'docker build -f ./training/Dockerfile . -t msil-training:${GIT_COMMIT_HASH}'
                      sh 'docker tag msil-training:${GIT_COMMIT_HASH} 731580992380.dkr.ecr.ap-south-1.amazonaws.com/dcp-auto-dev-apsouth1-training:${GIT_COMMIT_HASH} '  
                      sh 'aws ecr get-login-password --region ap-south-1 |docker login --username AWS --password-stdin 731580992380.dkr.ecr.ap-south-1.amazonaws.com'
                      sh 'docker push 731580992380.dkr.ecr.ap-south-1.amazonaws.com/dcp-auto-dev-apsouth1-training:${GIT_COMMIT_HASH}'
