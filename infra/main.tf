@@ -397,7 +397,7 @@ module "traininput-dynamodb-table" {
   deletion_protection_enabled = var.traininput-dynamodb-table-config.deletion_protection_enabled
   attributes = [
          {
-          "name" : "sku_mappingid"
+          "name" : "pk_mappingid"
           "type" : "S"
          }
         ]
