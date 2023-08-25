@@ -40,7 +40,6 @@ module "shared-s3-bucket" {
   attach_deny_insecure_transport_policy = true
   attach_require_latest_tls_policy      = true
   control_object_ownership              = true
-  expected_bucket_owner =  data.aws_caller_identity.current.account_id
 }
 
 
