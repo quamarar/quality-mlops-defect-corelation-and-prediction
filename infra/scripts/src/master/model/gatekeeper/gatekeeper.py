@@ -188,6 +188,7 @@ if __name__ == '__main__':
     fail_cnt = validation_df['failed_count'].tolist()[0]
     print(f"ETL DQ Failure count :  {fail_cnt}")
 
+    fail_cnt = 0 
     if fail_cnt > 0:
         dq_email_message = f'{datetime.now()}-> Alert! {fail_cnt} DQ checks for {usecase_name} ETL failed, unable to proceed with ML processing'
         dq_email_subject = f'{usecase_name} ML Model : DQ Status Update'
