@@ -31,9 +31,24 @@ def get_mapping_column_of_training_and_inferencing(mapping_json):
     """
     @param mapping_json: mapping json of framework
     """
-    train_mapping_column = mapping_json['mapping_json_data']['Training']['mappingcolumn']
-    Inference_mapping_column = mapping_json['mapping_json_data']['Inference']['mappingcolumn']
+    train_mapping_column = mapping_json['mapping_json_data']['Training']['mappingColumn']
+    Inference_mapping_column = mapping_json['mapping_json_data']['Inference']['mappingColumn']
     return train_mapping_column, Inference_mapping_column
+
+
+def email_sns(sns_client, topic_arn, message, subject):
+    """
+    Purpose: Send email notification to the user regarding the failure of DQ checks
+    param : topic_arn: ARN of the email topic
+    param : message: email message
+    param : subject: email subject
+    return: None
+    """
+    response = sns_client.publish(
+        TopicArn=topic_arn,
+        Message=message,
+        Subject=subject)
+    return response
 
 
 def is_train_superset_of_inference_algo(function_to_get_sets, mapping_json):
@@ -219,10 +234,9 @@ def submit_inference_aws_batch_job(
         assert aws_batch_compute_scale_factor > 0, "AWS Batch Computation Scale Factor Can't be Zero or Negative"
 
         custom_command = [
-            '--s3_inferencing_prefix_input_path', s3_inferencing_prefix_input_path,
+            '--s3_inferencing_data_input_path', s3_inferencing_prefix_input_path,
             '--s3_inferencing_prefix_output_path', s3_inferencing_prefix_output_path,
             '--inference_metatable_name', inference_metatable_name,
-            '--s3_approved_model_prefix_path', s3_approved_model_prefix_path,
             '--pk_id', pk_id,
             '--mapping_id', mapping_id,
             '--prev_batch_job_id', job_id,
@@ -466,11 +480,11 @@ def copy_mapping_json(source_path, destination_s3_bucket, destination_s3_key) ->
         raise Exception("copy_mapping_json function failed ")
 
 
-def update_ssm_store(ssm_parameter_name, value, arguments) -> None:
+def update_ssm_store(ssm_parameter_name, value, region) -> None:
     logging.info("updating ssm parameter {}".format(ssm_parameter_name))
     try:
 
-        ssm_client = boto3.client('ssm', region_name=arguments.region)
+        ssm_client = boto3.client('ssm', region_name=region)
 
         ssm_client.put_parameter(
             Name=ssm_parameter_name,

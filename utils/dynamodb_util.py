@@ -94,12 +94,11 @@ class TrainingMetaDataModel(Model):
     region = UnicodeAttribute(default="ap-south-1")
     algo_with_highest_score = UnicodeAttribute(default="")
     algo_score = ListAttribute(of=AlgoScore, default=[])
-    model_package_group_arn = UnicodeAttribute()
+    model_package_group_arn = UnicodeAttribute(default="")
     commit_id = UnicodeAttribute(default="")
     repository = UnicodeAttribute(default="")
-    preprocessing_dq_event_bus_name = UnicodeAttribute(default="")
-    feature_store_event_bus_name = UnicodeAttribute(default="")
-    model_monitoring_event_bus_name = UnicodeAttribute(default="")
+    training_event_bus_name = UnicodeAttribute(default="")
+    email_topic_arn = UnicodeAttribute(default="")
 
 
 class TrainingAlgorithmStatus(MapAttribute):

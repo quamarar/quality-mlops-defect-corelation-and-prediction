@@ -50,3 +50,4 @@ yarl==1.9.2
 # Remove below libraries by resolving util dynamodb_util
 awsglue-dev==2021.12.30
 pyspark==3.4.1
+pythena==1.6.0

@@ -54,6 +54,7 @@ class InferenceMetaDataModel(Model):
     inference_preprocessing_prefix_input_path = UnicodeAttribute(default="")
     pk_column_name = UnicodeAttribute(default="")
     mapping_id_column_name = UnicodeAttribute(default="")
+    training_mapping_id_column_name = UnicodeAttribute(default="")
     inference_execution_year = UnicodeAttribute()
     inference_execution_month = UnicodeAttribute()
     inference_execution_day = UnicodeAttribute()
@@ -105,7 +106,9 @@ class InferenceMetaDataModel(Model):
     inference_timelaps = Timelaps(default_for_new=Timelaps(start_time=0, end_time=0))
     input_data_set = ListAttribute(of=UnicodeAttribute, default=[])
     s3_inference_prefix_output_path = UnicodeAttribute(default="")
+    s3_infer_summary_prefix_output_path = UnicodeAttribute(default="")
     region = UnicodeAttribute(default="ap-south-1")
+    training_winning_algo_name = UnicodeAttribute(default="")
 
 
 class InferenceAlgorithmStatus(MapAttribute):
@@ -126,14 +129,10 @@ class InferenceAlgorithmS3OutputPath(MapAttribute):
     algorithm_name = UnicodeAttribute()
     inference_s3_output_path = UnicodeAttribute()
 
-    """model_s3_output_path = s3://bucketname/training/year=execution_year
-                                       /month=execution_month/day=execution_day/stepjobid=step_job_id/pk=pkid/mapping=mappingid/
-                                       batchjobid=batch_job_id/algoname=algorithmname/model.tar.gz
 
-       inference_s3_output_path = s3://bucketname/inference/year=execution_year
+    """inference_s3_output_path = s3://bucketname/inferenceout/year=execution_year
                                            /month=execution_month/day=execution_day/stepjobid=step_job_id/pk=pkid/mapping=mappingid/
-                                           batchjobid=batch_job_id/algoname=algorithmname/evaluation.json 
-    """
+                                           batchjobid=batch_job_id/algoname=algorithmname/evaluation.json"""
 
     def __eq__(self, other):
         return (isinstance(other, InferenceAlgorithmStatus)
@@ -175,7 +174,7 @@ class InferenceInputDataModel(Model):
     pk = UnicodeAttribute()
     mapping_id = UnicodeAttribute()
     mapping_json_s3_inference_path = UnicodeAttribute(default="")
-    mapping_json_s3_tranining_path = UnicodeAttribute(default="")
+    mapping_json_s3_training_path = UnicodeAttribute(default="")
     inference_input_data_set = ListAttribute(of=UnicodeAttribute, default=[])
     # Algo names to train the individual dates set on
     inference_algo_names = UnicodeSetAttribute()
@@ -225,7 +224,8 @@ class InferenceStateDataModel(Model):
     # Algo names to train the individual dates set on
     inference_algo_names = UnicodeSetAttribute()
     training_algo_names = UnicodeSetAttribute()
-
+    pk = UnicodeAttribute()
+    mapping_id = UnicodeAttribute()
     # S3 path with complete file name - assumption there is only file per  S3 input Path
     s3_pk_mappingid_data_input_path = UnicodeAttribute()
     s3_pk_mapping_model_prefix_input_path = UnicodeAttribute()
@@ -239,12 +239,12 @@ class InferenceStateDataModel(Model):
     algo_final_run_s3_outputpaths = ListAttribute(of=InferenceAlgorithmS3OutputPath,default=[])
     # S3 path with complete file name - assumption there is only file per  S3 input Pat
 
-    """s3_inference_prefix_output_path = s3://bucketname/inference/year=execution_year
+    """s3_inference_prefix_output_path = s3://bucketname/inferenceout/year=execution_year
                                        /month=execution_month/day=execution_day/stepjobid=step_job_id/pk=pkid/mapping=mappingid/
                                        batchjobid=batch_job_id"""
 
     s3_inference_prefix_output_path = UnicodeAttribute()
-    s3_eval_summary_prefix_output_path = UnicodeAttribute(default="")
+    s3_infer_summary_prefix_output_path = UnicodeAttribute(default="")
     cur_awsbatchjob_id = UnicodeAttribute()
     rerun_awsbatchjob_id = UnicodeAttribute(default="")
     rerun_awsbatchjob_cw_log_url = UnicodeAttribute(default="")
@@ -253,4 +253,5 @@ class InferenceStateDataModel(Model):
     awsbatch_job_status_overall = UnicodeAttribute()
     awsbatch_triggered_num_runs = NumberAttribute(default=-1)
     last_batch_run_time = NumberAttribute(default=0)
+    training_winning_algo_name = UnicodeAttribute(default="")
     version = VersionAttribute()
