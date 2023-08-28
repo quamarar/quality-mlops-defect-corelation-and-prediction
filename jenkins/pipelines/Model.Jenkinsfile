@@ -19,13 +19,16 @@ pipeline {
          {
           steps {
             dir ('model') {
+               withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
+                {
               echo "${GIT_file_change}"
               echo "${GIT_COMMIT_HASH}"
               sh 'aws s3 sync . s3://dcp-auto-dev-apsouth1-internal'
 
-          }
+              }
         }
         }
+         }
 
 
         
