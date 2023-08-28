@@ -4,7 +4,7 @@ ARG CONTEXT_NAME=training
 
 WORKDIR /opt/ml
 
-ADD model/${CONTEXT_NAME}_job/preprocessing/*  /opt/ml/
+ADD model/${CONTEXT_NAME}_job/preprocessing  /opt/ml/
 ADD utils /opt/ml/utils
 
 RUN pip3 install --upgrade -r /opt/ml/requirements.txt
