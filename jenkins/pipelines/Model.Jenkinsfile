@@ -15,11 +15,17 @@ pipeline {
            }
          }
 
-        stage('detect file change in folder model') {
+        stage('detect file change in folder model')
+         {
+          when {
+            changeset "model/*"
+          }
           steps {
             dir ('model') {
               echo "${GIT_file_change}"
               echo "${GIT_COMMIT_HASH}"
+              sh 'aws s3 sync . s3://dcp-auto-dev-apsouth1-internal'
+
           }
         }
         }
@@ -28,10 +34,10 @@ pipeline {
         
         stage('build processing docker image and push to ecr') {
           when {
-              changeset "model/preprocessing/*"
+              changeset "model/training_job/preprocessing/*"
             }
             steps {
-                dir ('model') {
+                dir ('model/training_job') {
                   withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                   {
                      sh 'docker build -f ./preprocessing/Dockerfile . -t msil-preprocessing:${GIT_COMMIT_HASH}'
@@ -47,10 +53,10 @@ pipeline {
                 
         stage('build training docker image and push to ecr') {
           when {
-              changeset "model/training/*"
+              changeset "model/training_job/training/*"
             }
             steps {
-                dir ('model') {
+                dir ('model/training_job') {
                   withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                   {
 

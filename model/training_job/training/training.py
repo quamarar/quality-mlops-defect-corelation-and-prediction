@@ -67,7 +67,7 @@ def setup():
 def insert_train_job_state_table(train_start_exec_epoc, recursive_runs=0):
     # try:
 
-    # The purpose of below sleep is to avoid contention between Glue job and Container while writing same row to Dynamo
+    ## The purpose of below sleep is to avoid contention between Glue job and Container while writing same row to Dynamo
     try:
 
         logging.info(f"args.train_metatable_name:{args.train_metatable_name}")
