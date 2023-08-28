@@ -9,7 +9,7 @@ from utils.ddb_helper_functions import upload_file,read_json_from_s3
 from utils.dynamodb_util import TrainInputDataModel, TrainingMetaDataModel, Timelaps
 
 
-####################
+#####################
 # import argparse
 # import logging
 # import time
