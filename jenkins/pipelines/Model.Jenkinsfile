@@ -37,7 +37,6 @@ pipeline {
               changeset "model/training_job/preprocessing/*"
             }
             steps {
-                dir ('model') {
                   withAWS(roleAccount:'731580992380', role:'Cross-Account-role') 
                   {
                      sh 'docker build -f ./training_job/preprocessing/Dockerfile . -t msil-preprocessing:${GIT_COMMIT_HASH}'
@@ -49,7 +48,7 @@ pipeline {
                 }
             }
         }
-        }
+        
                 
         stage('build training docker image and push to ecr') {
           when {
